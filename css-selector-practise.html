@@ -5,10 +5,15 @@
   <meta charset="utf-8">
   <title>Document</title>
   <style>
+    body>p:first-child {
+      color: rgb(255, 0, 0);
+    }
+
     p.a:focus,
     .c span>span:nth-child(2),
     a[href*="mailto:"]:link,
-    .b ul li:nth-child(-n+50):nth-child(n+35) {
+    .b ul li:nth-child(-n+50):nth-child(n+35),
+    .prime ul li:first-child {
       color: rgb(0, 0, 255);
     }
 
@@ -49,7 +54,7 @@
 </head>
 
 <body>
-  <p style="color: rgb(255, 0, 0);">红色</p>
+  <p>红色</p>
 
   <p class="a" tabindex="-1">鼠标悬浮时为红色，按下去时为绿色，获得焦点时为蓝色</p>
 
