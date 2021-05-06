@@ -10,10 +10,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   main {
     display: flex;
-    // justify-content: center;
-    // align-items: center;
     ul {
       display: flex;
       list-style: none;
@@ -26,7 +25,7 @@ body {
           font-size: 2em;
           border: solid 1px #ecf0f1;
           &:hover+div  {
-            transform: scale(2);
+            transform: scale(1.5);
           }
         
         }
@@ -44,6 +43,39 @@ body {
         transform-origin: left top;
         transform: scale(0);
         transition: .8s;
+      }
+    }
+  }
+  footer {
+    position: relative;
+    height: 20vh;
+    bottom: -40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      .img-scale {
+        transform: scale(.8) translateY(-30px);
+        cursor: pointer;
+        filter: blur(10px);
+      }
+    }
+    .img-scale {
+      width: 100px;
+      height: 100px;
+      overflow: hidden;
+      margin-right: 10px;
+      border: solid 1px #3498db;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: .5s;
+      &:hover {
+        transform: scale(1.5);
+        filter: none;
+      }
+      img {
+        height: 100%;
       }
     }
   }

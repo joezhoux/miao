@@ -9,6 +9,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 body main {
   display: flex;
@@ -28,7 +29,7 @@ body main ul li strong {
   border: solid 1px #ecf0f1;
 }
 body main ul li strong:hover + div {
-  transform: scale(2);
+  transform: scale(1.5);
 }
 body main ul li div > a {
   text-decoration: none;
@@ -43,4 +44,35 @@ body main ul li > div {
   transform-origin: left top;
   transform: scale(0);
   transition: 0.8s;
+}
+body footer {
+  position: relative;
+  height: 20vh;
+  bottom: -40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body footer:hover .img-scale {
+  transform: scale(0.8) translateY(-30px);
+  cursor: pointer;
+  filter: blur(10px);
+}
+body footer .img-scale {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  margin-right: 10px;
+  border: solid 1px #3498db;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+}
+body footer .img-scale:hover {
+  transform: scale(1.5);
+  filter: none;
+}
+body footer .img-scale img {
+  height: 100%;
 }
