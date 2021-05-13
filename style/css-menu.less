@@ -55,3 +55,29 @@
   border-left: 2px solid #a4b0be;
   border-right: 2px solid #a4b0be;
 }
+
+.left>ul {
+  li:last-child{
+    position: relative;
+    .a {
+      position: absolute;
+      left: 296px;
+      width: 80px;
+      height: 30px;
+      border: 1px solid black;
+      display: none;
+    }
+    .b {
+      position: absolute;
+      left: 296px;
+      top: 29px;
+      width: 80px;
+      height: 30px;
+      border: 1px solid black;
+      display: none;
+    }
+    &:hover span{
+      display: block;
+    }
+  }
+}
