@@ -1,0 +1,148 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+
+  div {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    cursor: pointer;
+    background: no-repeat url("../images/heart.png");
+  }
+}
+
+.heart1 {
+  top: 400px;
+  left: 200px;
+  animation: 2s linear twitter-heart;
+  background-position: -2800px 0px;
+  transition: all 1s steps(28);
+
+  &:hover {
+    background-position: 0px 0px;
+    transition: all 5ms steps(28);
+  }
+}
+
+.heart2 {
+  top: 400px;
+  left: 350px;
+  animation: 2s linear twitter-heart;
+
+  &:hover {
+    background-position: -2800px 0px;
+    transition: all 1s steps(28);
+  }
+}
+
+.heart3 {
+  top: 400px;
+  left: 500px;
+  animation: 2s linear twitter-heart;
+  background-position: -2800px 0px;
+  transition: all 1s steps(28);
+
+  &:hover {
+    background-position: 0px 0px;
+    transition: all 5ms steps(28);
+    ;
+  }
+}
+
+.heart4 {
+  top: 400px;
+  left: 650px;
+  animation: 2s linear twitter-heart;
+
+  &:hover {
+    background-position: -2800px 0px;
+    transition: all 1s steps(28);
+  }
+}
+
+.heart5 {
+  top: 400px;
+  left: 800px;
+  animation: 2s linear twitter-heart;
+  background-position: -2800px 0px;
+  transition: all 1s steps(28);
+
+  &:hover {
+    background-position: 0px 0px;
+    transition: all 5ms steps(28);
+  }
+}
+
+
+@keyframes twitter-heart {
+  0% {
+    top: 80px;
+
+  }
+
+  10% {
+    top: 160px;
+
+  }
+
+  20% {
+    top: 240px;
+
+  }
+
+  30% {
+    top: 320px;
+
+  }
+
+  40% {
+    top: 400px;
+
+  }
+
+  50% {
+    top: 320px;
+
+  }
+
+  60% {
+    top: 240px;
+
+  }
+
+  70% {
+    top: 320px;
+
+  }
+
+  80% {
+    top: 400px;
+
+  }
+
+  90% {
+    top: 320px;
+
+  }
+
+  100% {
+    top: 400px;
+
+  }
+}
+
+@keyframes a {
+  from {
+    background-position: -2800px 0px;
+  }
+
+  to {
+    background-position: 0px 0px;
+  }
+
+}
