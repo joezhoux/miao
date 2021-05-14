@@ -99,11 +99,3 @@ body div {
     top: 400px;
   }
 }
-@keyframes a {
-  from {
-    background-position: -2800px 0px;
-  }
-  to {
-    background-position: 0px 0px;
-  }
-}
