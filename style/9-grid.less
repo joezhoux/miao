@@ -11,7 +11,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
 }
-
+//伪元素覆盖，hover z-index为1，pointer-events事件为none
 .container1 {
   width: 152px;
   display: flex;
@@ -27,51 +27,65 @@ body {
     align-items: center;
     cursor: pointer;
     color: green;
+    position: relative;
 
-    &:hover {
-      border: 2px solid red;
+    &::before {
+      content: "";
+      border: 2px solid blue;
+      position: absolute;
+      left: -2px;
+      top: -2px;
+      width: 48px;
+      height: 48px;
+      
+    }
+    &:hover::before{
+      border-color:red;
+      pointer-events: none;
+      z-index: 1;
     }
   }
 }
-
+//float后给负margin，给定位，hover时z-index为1
 ul li {
   list-style: none;
 }
 
 .container2 {
   width: 152px;
-  height: 150px;
-  border: 1px solid blue;
-  margin-bottom: -1px;
+  height: 152px;
 
   li {
     width: 50px;
     height: 50px;
     float: left;
-    border: 1px solid blue;
+    border: 2px solid blue;
     text-align: center;
-    padding: 1em;
+    line-height: 50px;
+    margin: 0 -2px -2px 0;
     color: green;
     cursor: pointer;
+    position: relative;
 
     &:hover {
       border: 2px solid red;
+      z-index: 1;
     }
   }
 }
-
+//边框合并，利用边框类型优先级覆盖solid>ridge,边框足够小时适用
 table {
   border-collapse: collapse;
   td {
     width: 50px;
     height: 50px;
-    border: 2px solid blue;
+    border: 2px ridge blue;
     text-align: center;
     color: green;
     cursor: pointer;
 
     &:hover {
-      border: 3px solid red;
+      border: 2px solid red;
     }
   }
 }
