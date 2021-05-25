@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>radio-slider</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      width: 800px;
+      height: 400px;
+      position: relative;
+      /* overflow: hidden; */
+    }
+    .container input:nth-of-type(1) {
+      position: absolute;
+      left: 150px;
+      bottom: 50px;
+      z-index: 100;
+    }
+    .container input:nth-of-type(2) {
+      position: absolute;
+      left: 250px;
+      bottom: 50px;
+      z-index: 100;
+    }
+    .container input:nth-of-type(3) {
+      position: absolute;
+      left: 350px;
+      bottom: 50px;
+      z-index: 100;
+    }
+    .container input:nth-of-type(4) {
+      position: absolute;
+      left: 450px;
+      bottom: 50px;
+      z-index: 100;
+    }
+    .img-box {
+      width: 600px;
+      height: 100%;
+      position: absolute;
+      left: 0px;
+    	top: 0px;
+    }
+    .img-box div {
+      width: 150px;
+      height: 100%;
+      position: relative;
+      float: left;
+      overflow: hidden;
+    }
+    .img-box span {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: -150px;
+    }
+
+    .container input:nth-of-type(1):checked ~ .img-box ,  .img-box span:nth-of-type(1) {
+      background: url("images/1.jpg");
+    }
+    .container input:nth-of-type(2):checked ~ .img-box ,  .img-box span:nth-of-type(2) {
+      background: url("images/2.jpg");
+    }
+    .container input:nth-of-type(3):checked ~ .img-box ,  .img-box span:nth-of-type(3) {
+      background: url("images/3.jpg");
+    }
+    .container input:nth-of-type(4):checked ~ .img-box ,  .img-box span:nth-of-type(4) {
+      background: url("images/4.jpg");
+    }
+    .img-box div:nth-of-type(1) span {
+      background-position: 0px 0px;
+    }
+    .img-box div:nth-of-type(2) span {
+      background-position: -150px 0px;
+    }
+    .img-box div:nth-of-type(3) span {
+      background-position: -300px 0px;
+    }
+    .img-box div:nth-of-type(4) span {
+      background-position: -450px 0px;
+    }
+    .container input:checked ~ .img-box div span {
+      animation:ff 1s ease-in-out;
+    }
+    @keyframes ff {
+      0%{
+        left: 0;
+      }
+      100%{
+        left: 150px;
+      }
+    }
+
+    .container input:nth-of-type(1):checked ~ .img-box div span:nth-of-type(1),
+    .container input:nth-of-type(2):checked ~ .img-box div span:nth-of-type(2),
+    .container input:nth-of-type(3):checked ~ .img-box div span:nth-of-type(3),
+    .container input:nth-of-type(4):checked ~ .img-box div span:nth-of-type(4) {
+      transition: left 1s ease-in-out;
+      animation: none;
+      left: 0;
+      z-index: 10;
+    }
+ 
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="radio" name="a" checked>
+    <input type="radio" name="a">
+    <input type="radio" name="a">
+    <input type="radio" name="a">
+    <div class="img-box">
+      <div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+
+    <!-- <div class="img-box">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="img-box">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div> -->
+  </div>
+</body>
+</html>
