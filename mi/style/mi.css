@@ -143,6 +143,9 @@ a:hover {
   position: absolute;
   left: 0px;
   top: 140px;
+  background-color: #ffffff;
+  z-index: 10;
+  cursor: pointer;
 }
 .header .topbar .site-header .header-nav ul li .header-nav-menu ul {
   display: flex;
@@ -221,8 +224,8 @@ a:hover {
   width: 296px;
   height: 52px;
   border: 1px solid #e0e0e0;
-  font-size: 16px;
-  padding: 4px;
+  font-size: 14px;
+  padding: 5px;
   outline: none;
 }
 .header .topbar .site-header .search input:focus {
@@ -240,8 +243,52 @@ a:hover {
   color: #616161;
   position: absolute;
   right: 3px;
+  cursor: pointer;
 }
 .header .topbar .site-header .search span:hover {
   background-color: #ff6700;
   color: #ffffff;
+}
+.swiper-wrapper {
+  width: 1226px;
+  height: 460px;
+  margin: 0 auto;
+  background: url("../images/2b6933610dfa42adc25e4adf19ac5450.jpg") no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.swiper-wrapper .site-category {
+  width: 234px;
+  height: 460px;
+  color: #ffffff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  background: rgba(105, 101, 101, 0.6);
+}
+.swiper-wrapper .site-category ul {
+  display: flex;
+  height: 420px;
+  justify-content: space-evenly;
+  flex: 1;
+  flex-direction: column;
+  position: relative;
+}
+.swiper-wrapper .site-category ul li {
+  height: 42px;
+  padding-left: 30px;
+  line-height: 42px;
+  cursor: pointer;
+}
+.swiper-wrapper .site-category ul li:hover {
+  background-color: #ff6700;
+}
+.swiper-wrapper .site-category ul span {
+  position: absolute;
+  right: 20px;
+}
+.swiper-wrapper .i-radio {
+  position: absolute;
+  right: 30px;
+  bottom: 20px;
 }
