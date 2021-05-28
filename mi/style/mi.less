@@ -270,9 +270,20 @@ a:hover {
   width: @minWidth;
   height: 460px;
   margin: 0 auto;
-  background: url("../images/2b6933610dfa42adc25e4adf19ac5450.jpg") no-repeat;
-  background-size: cover;
   position: relative;
+  img {
+    width: @minWidth;
+    height: 460px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: opacity 1s linear;
+    z-index: -1;
+  }
+  [class="active"] {
+    opacity: 1;
+  }
   .site-category {
     width: 234px;
     height: 460px;
@@ -307,6 +318,27 @@ a:hover {
     position: absolute;
     right: 30px;
     bottom: 20px;
+    span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border: 2px solid #fff;
+      border-color: hsla(0,0%,100%,.3);
+      border-radius: 10px;
+      overflow: hidden;
+      background: rgba(0,0,0,.4);
+      opacity: 1;
+      margin-right: 4px;
+      cursor: pointer;
+      &:hover {
+        border-color: rgba(0,0,0,.4);
+        background: hsla(0,0%,100%,.4);
+      }
+    }
+    span.active{
+      border-color: rgba(0,0,0,.4);
+      background: hsla(0,0%,100%,.4);
+    }
   }
 }
 
