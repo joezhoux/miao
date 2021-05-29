@@ -11,6 +11,8 @@
 @minWidth: 1226px;
 @imgWidth: 160px;
 @imgHeight: 110px;
+@swiperHeight: 460px;
+@categoryWidth: 234px;
 
 body {
   min-width: @minWidth;
@@ -268,12 +270,12 @@ a:hover {
 
 .swiper-wrapper {
   width: @minWidth;
-  height: 460px;
+  height: @swiperHeight;
   margin: 0 auto;
   position: relative;
   img {
     width: @minWidth;
-    height: 460px;
+    height: @swiperHeight;
     position: absolute;
     left: 0;
     top: 0;
@@ -285,8 +287,8 @@ a:hover {
     opacity: 1;
   }
   .site-category {
-    width: 234px;
-    height: 460px;
+    width: @categoryWidth;
+    height: @swiperHeight;
     color: @whiteColor;
     font-size: 14px;
     display: flex;
@@ -338,6 +340,28 @@ a:hover {
     span.active{
       border-color: rgba(0,0,0,.4);
       background: hsla(0,0%,100%,.4);
+    }
+  }
+  .swiper-button-prev {
+    width: 41px;
+    height: 69px;
+    background: url("../images/icon-slides.png") no-repeat -84px 50%;;
+    position: absolute;
+    left: @categoryWidth;
+    top: 230px;
+    &:hover {
+      background-position: 0 50%;
+    }
+  }
+  .swiper-button-next {
+    width: 41px;
+    height: 69px;
+    background: url("../images/icon-slides.png") no-repeat -125px 50%;
+    position: absolute;
+    right: 0;
+    top: 230px;
+    &:hover {
+      background-position: -42px 50%;
     }
   }
 }

@@ -1,41 +1,59 @@
 "use strict";
 window.onload = show;
+
 function show() {
-  let images = document.querySelectorAll(".swiper-wrapper [src]");
-  let buttons = document.querySelectorAll(`.i-radio [role="button"]`); 
-  let targetActive = 0; 
+  let imgs = document.querySelectorAll(".swiper-wrapper [src]");
+  let buttons = document.querySelectorAll(`.i-radio [role="button"]`);
+  let prev = document.querySelector(".swiper-button-prev");
+  let next = document.querySelector(".swiper-button-next");
+  let counter = 0;
+  let _interval = null;
 
-  function imgOut() {
-    images[targetActive].className = "";
-    buttons[targetActive].className = "";
-  };
-
-  function imgInto() {
-    images[targetActive].className = "active";
-    buttons[targetActive].className = "active";
-  };
-
-  function changeImg() {
-    imgOut();
-    targetActive++;
-    if(targetActive >= 4) {
-      targetActive = 0;
+  function slideshow(curIndex) {
+    imgs.forEach((node) => node.className = "");
+    buttons.forEach((node) => node.className = "");
+   
+    (typeof curIndex == "object") ?  counter-- : counter++;
+    
+    counter = (typeof curIndex == "number") ? curIndex : counter;
+    if (counter >= 4) {
+      counter = 0;
+    } else if(counter <= -1) {
+      counter = 3;
     }
-    imgInto();
-  }
 
-  let showTime = setInterval(changeImg,5000);
-
-  show.onmouseover = function() {
-    clearInterval(showTime);
+    imgs[counter].className = "active";
+    buttons[counter].className = "active";
   }
-  show.onmouseout = function() {
-    showTime = setInterval(changeImg,5000);
-  }
+  _interval = setInterval(() => {
+    slideshow();
+  }, 5000);
 
-  buttons.forEach((node,key) => {
-    node.addEventListener("click",function() {
-      
-    })
-  })  
+  buttons.forEach((node, key) => {
+    node.addEventListener("click", () => {
+      clearInterval(_interval);
+      slideshow(key);
+      _interval = setInterval(() => {
+        slideshow();
+      }, 5000);
+    });
+  });
+
+  prev.addEventListener("click", (e) => {
+    clearInterval(_interval);
+    slideshow(e.target);
+    _interval = setInterval(() => {
+      slideshow();
+    }, 5000);
+  });
+
+  next.addEventListener("click", () => {
+    clearInterval(_interval);
+    slideshow();
+    _interval = setInterval(() => {
+      slideshow();
+    }, 5000);
+  });
+
+
 };

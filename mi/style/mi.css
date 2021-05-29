@@ -324,3 +324,25 @@ a:hover {
   border-color: rgba(0, 0, 0, 0.4);
   background: hsla(0, 0%, 100%, 0.4);
 }
+.swiper-wrapper .swiper-button-prev {
+  width: 41px;
+  height: 69px;
+  background: url("../images/icon-slides.png") no-repeat -84px 50%;
+  position: absolute;
+  left: 234px;
+  top: 230px;
+}
+.swiper-wrapper .swiper-button-prev:hover {
+  background-position: 0 50%;
+}
+.swiper-wrapper .swiper-button-next {
+  width: 41px;
+  height: 69px;
+  background: url("../images/icon-slides.png") no-repeat -125px 50%;
+  position: absolute;
+  right: 0;
+  top: 230px;
+}
+.swiper-wrapper .swiper-button-next:hover {
+  background-position: -42px 50%;
+}
