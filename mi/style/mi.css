@@ -263,7 +263,6 @@ a:hover {
   top: 0;
   opacity: 0;
   transition: opacity 1s linear;
-  z-index: -1;
 }
 .swiper-wrapper [class="active"] {
   opacity: 1;
@@ -275,7 +274,6 @@ a:hover {
   font-size: 14px;
   display: flex;
   align-items: center;
-  background: rgba(105, 101, 101, 0.6);
 }
 .swiper-wrapper .site-category ul {
   display: flex;
@@ -284,6 +282,9 @@ a:hover {
   flex: 1;
   flex-direction: column;
   position: relative;
+  box-sizing: content-box;
+  padding: 20px 0;
+  background: rgba(105, 101, 101, 0.6);
 }
 .swiper-wrapper .site-category ul li {
   height: 42px;

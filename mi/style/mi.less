@@ -281,7 +281,6 @@ a:hover {
     top: 0;
     opacity: 0;
     transition: opacity 1s linear;
-    z-index: -1;
   }
   [class="active"] {
     opacity: 1;
@@ -293,7 +292,7 @@ a:hover {
     font-size: 14px;
     display: flex;
     align-items: center;
-    background: rgba(105,101,101,.6);
+ 
     ul {
       display: flex;
       height: 420px;
@@ -301,6 +300,9 @@ a:hover {
       flex: 1;
       flex-direction: column;
       position: relative;
+      box-sizing: content-box;
+      padding: 20px 0;
+      background: rgba(105,101,101,.6);
       li {
         height: 42px;
         padding-left: 30px;
