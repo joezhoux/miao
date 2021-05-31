@@ -6,7 +6,6 @@ function show() {
   let buttons = document.querySelectorAll(`.i-radio [role="button"]`);
   let prev = document.querySelector(".swiper-button-prev");
   let next = document.querySelector(".swiper-button-next");
-  let swiperWrapper = document.querySelector(".swiper-wrapper");
   let container = [...buttons,...imgs,prev,next];
   let counter = 0;
   let _interval = null;
