@@ -94,5 +94,58 @@ function interval(callback, delay = 100) {
 }
 
 
+let hot = document.querySelectorAll(".xm-tv a");
+let imgtv = document.querySelectorAll('.xm-tv img[alt="imgtv"]');
+let texttv = document.querySelectorAll('.xm-tv h3');
+let pricetv = document.querySelectorAll('.xm-tv p span');
+let deltv = document.querySelectorAll('.xm-tv p del');
 
+
+hot.forEach((node) => {
+  hot[0].classList.add("hot");
+  node.addEventListener("mouseenter", (e)=> {
+    hot[0].classList.remove("hot");
+    hot[1].classList.remove("hot");
+    e.target.classList.add("hot");
+    if(e.target.id == "a2") {
+      imgtv.forEach(node=>{
+        node.removeAttribute("src");
+        node.setAttribute("src","./images/7e2127506fd2209f3115828404269d45.jpg");
+      });
+    } else {
+      imgtv.forEach(node=>{
+        node.removeAttribute("src");
+        node.setAttribute("src","./images/03a9e7e96a09d256ca1badeec186c859.webp");
+      });
+    }
+    if(e.target.id == "a2") {
+      texttv.forEach(node=>{
+        node.innerHTML = "小米电视4S 75英寸";
+      });
+    } else {
+      texttv.forEach(node=>{
+        node.innerHTML = "小米全面屏电视65英寸 E65X";
+      });
+    }
+    if(e.target.id == "a2") {
+      pricetv.forEach(node=>{
+        node.innerHTML = "4199元";
+      });
+    } else {
+      pricetv.forEach(node=>{
+        node.innerHTML = "2799元"
+      });
+    }
+    if(e.target.id == "a2") {
+      deltv.forEach(node=>{
+        node.innerHTML = "5999元"
+      });
+    } else {
+      deltv.forEach(node=>{
+        node.innerHTML = "3299元"
+      });
+    }
+  });
+
+});
 
