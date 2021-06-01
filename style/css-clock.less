@@ -1,0 +1,171 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clock {
+  width: 600px;
+  height: 600px;
+  border: 1px solid #a4b0be;
+  border-radius: 50%;
+  box-shadow: 0 0 30px #a4b0be;
+  position: relative;
+
+  div {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    font-size: 4em;
+    text-align: center;
+    left: 250px;
+    top: 250px;
+    transform-origin: center;
+  }
+  .h1 {
+    transform: rotate(30deg) translateY(-250px)  rotate(-30deg);
+  }
+
+  .h2 {
+    transform: rotate(60deg) translateY(-250px)  rotate(-60deg);
+  }
+
+  .h3 {
+    transform: translateX(250px);
+  }
+  .h4 {
+    transform: rotate(120deg) translateY(-250px)  rotate(-120deg);
+  }
+  .h5 {
+    transform: rotate(150deg) translateY(-250px)  rotate(-150deg);
+  }
+
+  .h6 {
+    transform: translateY(250px);
+  }
+  .h7 {
+    transform: rotate(210deg) translateY(-250px)  rotate(-210deg);
+  }
+  .h8 {
+    transform: rotate(240deg) translateY(-250px)  rotate(-240deg);
+  }
+
+  .h9 {
+    transform: translateX(-250px);
+  }
+  .h10 {
+    transform: rotate(300deg) translateY(-250px)  rotate(-300deg);
+  }
+  .h11 {
+    transform: rotate(330deg) translateY(-250px)  rotate(-330deg);
+  }
+  .h12 {
+    transform: translateY(-250px);
+  }
+
+  .hours, .minutes, .seconds {
+    width: 600px;
+    height: 600px;
+    left: 0px;
+    top: 0px;
+  }
+
+  .m {
+    width: 10px;
+    height: 250px;
+    background-color: orange;
+    position: absolute;
+    left: 295px;
+    top: 60px;
+    border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+    transform-origin: center 250px;
+  }
+
+  .h {
+    width: 20px;
+    height: 200px;
+    background-color: black;
+    position: absolute;
+    left: 290px;
+    top: 110px;
+    border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+    transform-origin: center 200px;
+  }
+
+  .seconds {
+    animation: seconds 60s steps(60, end) infinite;
+  }
+
+  .minutes {
+    animation: minutes 3600s steps(60, end) infinite;
+  }
+  .hours {
+    animation: huors 43200s steps(12, end) infinite;
+  }
+
+  .s {
+    width: 6px;
+    height: 300px;
+    background-color: red;
+    position: absolute;
+    left: 297px;
+    top: 50px;
+    border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+    transform-origin: center 250px;
+    animation: s 1s infinite;
+  }
+}
+
+@keyframes seconds {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes minutes {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes huors {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes s {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(2deg);
+  }
+  20% {
+    transform: rotate(-1deg);
+  }
+  30% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+
