@@ -1,7 +1,7 @@
 "use strict";
 
 window.onload = show;
-
+//轮播图防抖，1秒内多次点击不执行，间隔1秒执行最后一次事件
 function debounce(callback, delay = 1000) {
   let timeout = null;
   return (e) => {

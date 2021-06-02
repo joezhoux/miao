@@ -807,6 +807,7 @@ a:hover {
     .xm-tel {
       width: @minWidth;
       height: 100%;
+
       .box-hd {
         height: 58px;
         display: flex;
@@ -848,6 +849,7 @@ a:hover {
             &:hover {
               color: @orangeColor;
             }
+
             &:hover i {
               background-color: @orangeColor;
             }
@@ -861,12 +863,14 @@ a:hover {
         height: 100%;
         display: grid;
         grid-template-rows: 300px 300px;
-        grid-template-columns: repeat(5,234px);
-        grid-template-areas: "a b c d e" "a b1 c1 d1 e1";
+        grid-template-columns: repeat(5, 234px);
+        grid-template-areas: "a b c d e""a b1 c1 d1 e1";
         gap: 14px 14px;
+
         div {
           transition: all .2s linear;
           cursor: pointer;
+
           &:nth-child(1) {
             width: 100%;
             margin: 0;
@@ -874,34 +878,42 @@ a:hover {
             background: url("../images/c583f2edc613f1be20fa415910b13ce3.webp") no-repeat;
             background-size: cover;
           }
+
           &:nth-child(3) {
             .bd-item();
             grid-area: c;
           }
+
           &:nth-child(4) {
             .bd-item();
             grid-area: d;
           }
+
           &:nth-child(5) {
             .bd-item();
             grid-area: e;
           }
+
           &:nth-child(6) {
             .bd-item();
             grid-area: b1;
           }
+
           &:nth-child(7) {
             .bd-item();
             grid-area: c1;
           }
+
           &:nth-child(8) {
             .bd-item();
             grid-area: d1;
           }
+
           &:nth-child(9) {
             .bd-item();
             grid-area: e1;
           }
+
           &:hover {
             transform: translateY(-2px);
             box-shadow: 0 15px 30px @borderColor;
@@ -909,10 +921,13 @@ a:hover {
         }
       }
     }
+
     .xm-tv {
       .xm-tel();
+
       .box-bd {
-        grid-template-areas: "a1 b c d e" "a2 b1 c1 d1 e1";
+        grid-template-areas: "a1 b c d e""a2 b1 c1 d1 e1";
+
         div {
           &:nth-child(1) {
             width: 100%;
@@ -921,10 +936,12 @@ a:hover {
             background: url("../images/116fc43816b87192be4e67cf762e8da5.webp") no-repeat;
             background-size: cover;
           }
+
           &:nth-child(10) {
             grid-area: a2;
             width: 234px;
             margin: 0;
+
             img {
               width: 234px;
               height: 300px;
@@ -932,11 +949,13 @@ a:hover {
           }
         }
       }
+
       #a1 {
         margin-top: 20px;
         margin-right: 20px;
         line-height: 24px;
       }
+
       #a2 {
         line-height: 24px;
       }
@@ -946,7 +965,7 @@ a:hover {
 }
 
 .hot {
-  color: @orangeColor !important;
+  color: @orangeColor  !important;
   border-bottom: 2px solid @orangeColor;
 }
 
@@ -960,8 +979,9 @@ a:hover {
     width: 160px;
     height: 160px;
     margin: 20px 0;
-    
+
   }
+
   h3 {
     width: 234px;
     margin: 0 auto 3px;
@@ -997,5 +1017,162 @@ a:hover {
 .site-footer {
   width: 100%;
 
+  .footer-service {
+    width: @minWidth;
+    height: 80px;
+    padding: 27px 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid @borderColor;
 
+    ul {
+      width: @minWidth;
+      display: flex;
+      justify-content: space-between;
+
+
+      li {
+        height: 25px;
+        font-size: 16px;
+        line-height: 25px;
+        text-align: center;
+        flex: 1;
+        color: rgb(97, 97, 97);
+        border-right: 1px solid @borderColor;
+
+        i {
+          margin-left: 6px;
+          font-size: 24px;
+          line-height: 24px;
+          vertical-align: -4px;
+        }
+
+        &:hover a {
+          color: @orangeColor;
+        }
+      }
+
+      li:last-child {
+        border: none;
+      }
+    }
+  }
+
+  .footer-links {
+    width: @minWidth;
+    margin: 0 auto;
+    padding: 40px 0;
+
+    .col-links {
+      float: left;
+      width: 160px;
+      margin: 0;
+
+      dt {
+        margin: -1px 0 26px;
+        font-size: 14px;
+        line-height: 1.25;
+        color: #424242;
+      }
+
+      dd {
+        margin-bottom: 10px;
+        font-size: 12px;
+        cursor: pointer;
+
+        &:hover {
+          color: @orangeColor;
+        }
+      }
+    }
+
+    .col-contact {
+      float: right;
+      width: 251px;
+      border-left: 1px solid #e0e0e0;
+      text-align: center;
+      color: #616161;
+
+      p {
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
+
+      .phone {
+        font-size: 22px;
+        color: @orangeColor;
+      }
+
+      .btn-small {
+        width: 118px;
+        height: 28px;
+        font-size: 12px;
+        line-height: 28px;
+        color: @orangeColor;
+        border: 1px solid @orangeColor;
+        margin-bottom: 5px;
+      }
+      div {
+        font-size: 12px;
+        a:nth-child(1){
+          width: 24px;
+          height: 24px;
+          background: url("../images/wb.png") no-repeat;
+          background-size: cover;
+          vertical-align: bottom;
+          margin-left: 2px;
+          &:hover {
+            background: url("../images/wb@2x.png") no-repeat;
+            background-size: cover;
+          }
+        }
+        a:nth-child(2){
+          width: 24px;
+          height: 24px;
+          background: url("../images/wx.png") no-repeat;
+          background-size: cover;
+          vertical-align: bottom;
+          margin-left: 2px;
+          &:hover {
+            background: url("../images/wx@2x.png") no-repeat;
+            background-size: cover;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+.home-tool-bar {
+  width: 26px;
+  height: 261px;
+  position: fixed;
+  left: 50%;
+  right: auto;
+  margin-left: 613px;
+  bottom: 40px;
+  background-color: rgba(255, 255, 255, .1);
+  a {
+    width: 27px;
+    height: 42px;
+    text-align: center;
+    margin-top: -1px;
+    background-color: #fff;
+    border: 1px solid #f5f5f5;
+    img {
+      margin-top: 10px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+  a:last-child {
+    margin-top: 14px;
+  }
+}
+
+.hover {
+  display: none;
 }

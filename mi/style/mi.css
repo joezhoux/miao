@@ -1387,3 +1387,142 @@ a:hover {
 .site-footer {
   width: 100%;
 }
+.site-footer .footer-service {
+  width: 1226px;
+  height: 80px;
+  padding: 27px 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+.site-footer .footer-service ul {
+  width: 1226px;
+  display: flex;
+  justify-content: space-between;
+}
+.site-footer .footer-service ul li {
+  height: 25px;
+  font-size: 16px;
+  line-height: 25px;
+  text-align: center;
+  flex: 1;
+  color: #616161;
+  border-right: 1px solid #e0e0e0;
+}
+.site-footer .footer-service ul li i {
+  margin-left: 6px;
+  font-size: 24px;
+  line-height: 24px;
+  vertical-align: -4px;
+}
+.site-footer .footer-service ul li:hover a {
+  color: #ff6700;
+}
+.site-footer .footer-service ul li:last-child {
+  border: none;
+}
+.site-footer .footer-links {
+  width: 1226px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.site-footer .footer-links .col-links {
+  float: left;
+  width: 160px;
+  margin: 0;
+}
+.site-footer .footer-links .col-links dt {
+  margin: -1px 0 26px;
+  font-size: 14px;
+  line-height: 1.25;
+  color: #424242;
+}
+.site-footer .footer-links .col-links dd {
+  margin-bottom: 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.site-footer .footer-links .col-links dd:hover {
+  color: #ff6700;
+}
+.site-footer .footer-links .col-contact {
+  float: right;
+  width: 251px;
+  border-left: 1px solid #e0e0e0;
+  text-align: center;
+  color: #616161;
+}
+.site-footer .footer-links .col-contact p {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.site-footer .footer-links .col-contact .phone {
+  font-size: 22px;
+  color: #ff6700;
+}
+.site-footer .footer-links .col-contact .btn-small {
+  width: 118px;
+  height: 28px;
+  font-size: 12px;
+  line-height: 28px;
+  color: #ff6700;
+  border: 1px solid #ff6700;
+  margin-bottom: 5px;
+}
+.site-footer .footer-links .col-contact div {
+  font-size: 12px;
+}
+.site-footer .footer-links .col-contact div a:nth-child(1) {
+  width: 24px;
+  height: 24px;
+  background: url("../images/wb.png") no-repeat;
+  background-size: cover;
+  vertical-align: bottom;
+  margin-left: 2px;
+}
+.site-footer .footer-links .col-contact div a:nth-child(1):hover {
+  background: url("../images/wb@2x.png") no-repeat;
+  background-size: cover;
+}
+.site-footer .footer-links .col-contact div a:nth-child(2) {
+  width: 24px;
+  height: 24px;
+  background: url("../images/wx.png") no-repeat;
+  background-size: cover;
+  vertical-align: bottom;
+  margin-left: 2px;
+}
+.site-footer .footer-links .col-contact div a:nth-child(2):hover {
+  background: url("../images/wx@2x.png") no-repeat;
+  background-size: cover;
+}
+.home-tool-bar {
+  width: 26px;
+  height: 261px;
+  position: fixed;
+  left: 50%;
+  right: auto;
+  margin-left: 613px;
+  bottom: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.home-tool-bar a {
+  width: 27px;
+  height: 42px;
+  text-align: center;
+  margin-top: -1px;
+  background-color: #fff;
+  border: 1px solid #f5f5f5;
+}
+.home-tool-bar a img {
+  margin-top: 10px;
+  width: 20px;
+  height: 20px;
+}
+.home-tool-bar a:last-child {
+  margin-top: 14px;
+}
+.hover {
+  display: none;
+}
