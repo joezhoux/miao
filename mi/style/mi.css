@@ -466,6 +466,7 @@ a:hover {
   min-width: 1226px;
   background-color: #f5f5f5;
   padding-bottom: 10px;
+  position: relative;
 }
 .page-main .container {
   width: 1226px;
@@ -1507,6 +1508,18 @@ a:hover {
   bottom: 40px;
   background-color: rgba(255, 255, 255, 0.1);
 }
+@media (max-width: 1253px) {
+  .home-tool-bar {
+    width: 26px;
+    height: 261px;
+    position: fixed;
+    right: 0;
+    left: auto;
+    margin-left: 0;
+    bottom: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
 .home-tool-bar a {
   width: 27px;
   height: 42px;
@@ -1514,11 +1527,47 @@ a:hover {
   margin-top: -1px;
   background-color: #fff;
   border: 1px solid #f5f5f5;
+  position: relative;
 }
 .home-tool-bar a img {
   margin-top: 10px;
   width: 20px;
   height: 20px;
+  cursor: pointer;
+}
+.home-tool-bar a div {
+  float: left;
+  margin-left: -76px;
+  margin-top: 10px;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 8px;
+  background-color: #fff;
+  border: 1px solid #f5f5f5;
+  text-align: center;
+  white-space: nowrap;
+  display: none;
+}
+.home-tool-bar a div span {
+  color: #757575;
+}
+.home-tool-bar a .carts {
+  left: 14px;
+}
+.home-tool-bar a .phones {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  left: -28px;
+  top: -46px;
+  display: none;
+}
+.home-tool-bar a .phones img {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 0;
+  top: -10px;
 }
 .home-tool-bar a:last-child {
   margin-top: 14px;

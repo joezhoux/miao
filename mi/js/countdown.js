@@ -150,7 +150,10 @@ hot.forEach((node) => {
 });
 
 
-let homeToolBar = document.querySelectorAll(".home-tool-bar img");
+let toolBar = document.querySelector(".home-tool-bar");
+let homeToolBar = document.querySelectorAll(".home-tool-bar img[alt]");
+let toolBarSpan = document.querySelectorAll(".home-tool-bar div");
+
 const arr = [
   "./images/74c4fcb4475af8308e9a670db9c01fdf.png",
   "./images/41f858550f42eb1770b97faf219ae215.png",
@@ -168,16 +171,29 @@ const arrs = [
   "./images/totop.png"
 ];
 
-console.dir(homeToolBar);
 
 homeToolBar.forEach((node,key)=>{
   node.addEventListener("mouseenter",()=>{
     node.removeAttribute("src");
     node.setAttribute("src",arr[key]);
+    toolBarSpan[key].style.display = "block";
   });
   node.addEventListener("mouseleave",()=>{
     node.removeAttribute("src");
     node.setAttribute("src",arrs[key]);
+    toolBarSpan[key].style.display = "none";
   });
 })
+
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  let eStop = document.documentElement.scrollTop;
+  if(eStop < 1327) {
+    document.getElementById("toTop").style.display = "none";
+  } else {
+    document.getElementById("toTop").style.display = "block";
+  }
+}
 

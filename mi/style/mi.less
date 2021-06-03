@@ -14,6 +14,7 @@
 @swiperHeight: 460px;
 @categoryWidth: 234px;
 @containerBoxHeight: 340px;
+@min1253: ~"(max-width: 1253px)"; 
 
 
 body {
@@ -570,7 +571,7 @@ a:hover {
   min-width: @minWidth;
   background-color: rgb(245, 245, 245);
   padding-bottom: 10px;
-  ;
+  position: relative;
 
   .container {
     width: @minWidth;
@@ -1155,6 +1156,17 @@ a:hover {
   margin-left: 613px;
   bottom: 40px;
   background-color: rgba(255, 255, 255, .1);
+  @media @min1253 {
+    width: 26px;
+    height: 261px;
+    position: fixed;
+    right: 0;
+    left: auto;
+    margin-left: 0;
+    bottom: 40px;
+    background-color: rgba(255, 255, 255, .1);
+  }
+
   a {
     width: 27px;
     height: 42px;
@@ -1162,10 +1174,46 @@ a:hover {
     margin-top: -1px;
     background-color: #fff;
     border: 1px solid #f5f5f5;
+    position: relative;
     img {
       margin-top: 10px;
       width: 20px;
       height: 20px;
+      cursor: pointer;
+    }
+    div {
+      float:left;
+      margin-left: -76px;
+      margin-top: 10px;
+      height: 28px;
+      line-height: 28px;
+      padding: 0 8px;
+      background-color: #fff;
+      border: 1px solid #f5f5f5;
+      text-align: center;
+      white-space: nowrap;
+      display: none;
+      span {
+        color: #757575;
+      }
+    }
+    .carts {
+      left: 14px;
+    }
+    .phones {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      left: -28px;
+      top: -46px;
+      display: none;
+      img {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        left: 0;
+        top: -10px;
+      }
     }
   }
   a:last-child {
@@ -1176,3 +1224,8 @@ a:hover {
 .hover {
   display: none;
 }
+
+
+
+    
+
