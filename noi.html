@@ -1,0 +1,236 @@
+<script id="ch0103/01">
+  let a = Number(prompt('请输入a'))
+  let b = Number(prompt('请输入b'))
+
+  console.log(a + b)
+</script>
+
+<script id="ch0103/02">
+  let a = Number(prompt('请输入a'))
+  let b = Number(prompt('请输入b'))
+  let c = Number(prompt('请输入c'))
+
+  console.log((a + b)*c)
+</script>
+
+<script id="ch0103/03">
+  let a = Number(prompt('请输入a'))
+  let b = Number(prompt('请输入b'))
+  let c = Number(prompt('请输入c'))
+  while( c === 0 ) {
+    c = Number(prompt('请输入c'))
+  }
+
+  console.log(Math.floor((a + b)/c))
+</script>
+
+<script id="ch0103/04">
+  let a = Number(prompt('请输入a'))
+  let b = Number(prompt('请输入b'))
+  while (b === 0) {
+    b = Number(prompt('请输入b'))
+  }
+
+  console.log(Math.floor(a / b))
+  console.log(a % b)
+</script>
+
+<script id="ch0103/05">
+  let a = Number(prompt('请输入a'))
+  let b = Number(prompt('请输入b'))
+  while (b === 0) {
+    b = Number(prompt('请输入b'))
+  }
+
+  console.log((a / b).toFixed(9))
+</script>
+
+<script id="ch0103/06">
+  let a = Number(prompt('请输入a'))
+  let b = Number(prompt('请输入b'))
+  while (a === 0) {
+    a = Number(prompt('请输入a'))
+  }
+
+  console.log((b / a * 100).toFixed(3) + "%")
+</script>
+
+<script id="ch0103/07">
+  let x = Number(prompt('请输入x'))
+  let a = Number(prompt('请输入a'))
+  let b = Number(prompt('请输入b'))
+  let c = Number(prompt('请输入c'))
+  let d = Number(prompt('请输入d'))
+
+  console.log((a * x ** 3 + b * x ** 2 + c * x + d).toFixed(7))
+</script>
+
+<script id="ch0103/08">
+  let a = Number(prompt('输入一行，包含一个实数f，表示华氏温度。（f >= -459.67）'))
+  while (a < -459.67) {
+    a = Number(prompt('输入一行，包含一个实数f，表示华氏温度。（f >= -459.67）'))
+  }
+
+  console.log((5*(a-32)/9).toFixed(5))
+</script>
+
+<script id="ch0103/09">
+  let a = Number(prompt('输入包含一个实数r（0 < r <= 10,000），表示圆的半径。'))
+  const PI = 3.14159
+  while (a <= 0 && a > 10000) {
+    a = Number(prompt('输入包含一个实数r（0 < r <= 10,000），表示圆的半径。'))
+  }
+
+  console.log((2*a).toFixed(4))
+  console.log((2*a*PI).toFixed(4))
+  console.log((PI*a**2).toFixed(4))
+</script>
+
+<script id="ch0103/10">
+  let a = Number(prompt('输入a'))
+  let b = Number(prompt('输入b'))
+  while ( a <= 0 || b <= 0) {
+    a = Number(prompt('输入a'))
+    b = Number(prompt('输入b'))
+  }
+
+  console.log(1 / (1 / a + 1 / b))
+</script>
+
+<script id="ch0103/11">
+  let a = Number(prompt('输入a'))
+  let b = Number(prompt('输入b'))
+  while ( a < 0 || b <= 0) {
+    a = Number(prompt('输入a'))
+    b = Number(prompt('输入b'))
+  }
+  let c = (a%b).toFixed(6);
+  c = [...c].reverse();
+  for(let i = 0; i < 6; i++){
+    if(Number(c[i]) > 0) {
+      break;
+    } else if(Number(c[i]) == 0) {
+      c.shift();
+      i--;
+    }
+  }
+  c = c.reverse().join(""); 
+  
+  console.log(Number(c));
+</script>
+
+<script id="ch0103/12">
+  let a = Number(prompt('输入一个不超过100的非负实数，即球半径'))
+  const PI = 3.14
+  while (a < 0 || a > 100) {
+    a = Number(prompt('输入一个不超过100的非负实数，即球半径'))
+  }
+
+  console.log((4 / 3 * PI * a ** 3).toFixed(2))
+</script>
+
+<script id="ch0103/13">
+  let a = prompt('输入一个三位数')
+
+  while (a < 100 || a > 1000) {
+    a = Number(prompt('输入一个三位数'))
+  }
+
+  a = [...a].reverse().join("");
+
+  console.log(a)
+</script>
+
+<script id="ch0103/14">
+  let a = Number(prompt('小圆桶的深')) 
+  let b = Number(prompt('底面半径')) 
+  const PI = 3.14159
+  while (a <= 0 || b <= 0) {
+    a = prompt('小圆桶的深')
+    b = prompt('底面半径')
+  }
+
+  console.log(Math.ceil(20000 / (PI * b ** 2 * a)))
+</script>
+
+<script id="ch0103/15">
+  let a = Number(prompt('你买了一箱n个苹果输入一个数'))
+  let b = Number(prompt('虫子每x小时能吃掉一个苹果输入一个数'))
+  let c = Number(prompt('那么经过y小时输入一个数'))
+  while (a <= 0 || b <= 0 || c <= 0 || c > a * b) {
+    a = Number(prompt('你买了一箱n个苹果输入一个数'))
+    b = Number(prompt('虫子每x小时能吃掉一个苹果输入一个数'))
+    c = Number(prompt('那么经过y小时输入一个数'))
+  }
+
+  console.log(Math.floor(a - c / b))
+</script>
+
+<script id="ch0103/16">
+  let a = Number(prompt('坐标A x 输入一个绝对值小于10000的数'))
+  let b = Number(prompt('坐标A y 输入一个绝对值小于10000的数'))
+  let c = Number(prompt('坐标B x 输入一个绝对值小于10000的数'))
+  let d = Number(prompt('坐标B y 输入一个绝对值小于10000的数'))
+  while (Math.abs(a) > 10000 || Math.abs(b) > 10000 || Math.abs(c) > 10000 || Math.abs(d) > 10000) {
+    a = Number(prompt('坐标A x 输入一个绝对值小于10000的数'))
+    b = Number(prompt('坐标A y 输入一个绝对值小于10000的数'))
+    c = Number(prompt('坐标B x 输入一个绝对值小于10000的数'))
+    d = Number(prompt('坐标B y 输入一个绝对值小于10000的数'))
+  }
+
+  console.log(Math.sqrt(Math.abs(a - c) ** 2 + Math.abs(b - d) ** 2).toFixed(3))
+</script>
+
+<script id="ch0103/17">
+  let a = Number(prompt('坐标A x 输入一个数'))
+  let b = Number(prompt('坐标A y 输入一个数'))
+  let c = Number(prompt('坐标B x 输入一个数'))
+  let d = Number(prompt('坐标B y 输入一个数'))
+  let e = Number(prompt('坐标c x 输入一个数'))
+  let f = Number(prompt('坐标c y 输入一个数'))
+  let p1 = Math.sqrt(Math.abs(a - c) ** 2 + Math.abs(b - d) ** 2)
+  let p2 = Math.sqrt(Math.abs(a - e) ** 2 + Math.abs(b - f) ** 2)
+  let p3 = Math.sqrt(Math.abs(c - e) ** 2 + Math.abs(d - f) ** 2)
+  let p = (p1 + p2 + p3) / 2
+
+  console.log(Math.sqrt(p * (p - p1) * (p - p2) * (p - p3)).toFixed(2))
+</script>
+
+<script id="ch0103/18">
+  let a = Number(prompt('输入等差数列的前两项一个整数 -100 <= a'))
+  let b = Number(prompt('输入等差数列的前两项一个整数 b <= 100'))
+  let c = Number(prompt('输入等差数列的项数一个整数 0 < c <= 1000'))
+  let p = b;
+  while (a < -100 || b > 100 || c > 1000 || c <= 0) {
+    a = Number(prompt('输入等差数列的前两项一个整数 -100 <= a'))
+    b = Number(prompt('输入等差数列的前两项一个整数 b <= 100'))
+    c = Number(prompt('输入等差数列的项数一个整数 0 < c <= 1000'))
+  }
+  for (let i = 2; i < c; i++) {
+    p += (b - a)
+  }
+
+  console.log(p)
+</script>
+
+<script id="ch0103/19">
+  let a = Number(prompt('输入正整数A 1 <= A'))
+  let b = Number(prompt('输入正整数B B <= 50000'))
+
+  while (a < 1 || b > 50000) {
+    a = Number(prompt('输入正整数A 1 <= A'))
+    b = Number(prompt('输入正整数B B <= 50000'))
+  }
+
+  console.log(a * b)
+</script>
+
+<script id="ch0103/20">
+  let a = Number(prompt('非负整数n'))
+
+  while (a < 0) {
+    a = Number(prompt('输入非负整数n'))
+  }
+
+  console.log(2 ** a)
+</script>
