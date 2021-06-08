@@ -234,3 +234,233 @@
 
   console.log(2 ** a)
 </script>
+
+<script id="ch0104/01">
+  let a = Number(prompt('一个整数N(-109 <= N <= 109) 判断其正负'))
+
+  while (a < -109 || a > 109) {
+    a = Number(prompt('一个整数N(-109 <= N <= 109) 判断其正负'))
+  }
+  if(a > 0) {
+    a = "positive"
+  } else if(a < 0) {
+    a = "negative"
+  } else {
+    a = "zero"
+  }
+
+  console.log(a)
+</script>
+
+<script id="ch0104/02">
+  let a = Number(prompt('输入一个浮点数，其绝对值不超过10000'))
+
+  while (Math.abs(a) > 10000) {
+    a = Number(prompt('输入一个浮点数，其绝对值不超过10000'))
+  }
+
+  console.log(Math.abs(a).toFixed(2))
+</script>
+
+<script id="ch0104/03">
+  let a = Number(prompt('输入一个整数，判断该数是奇数还是偶数'))
+
+  a = a % 2 == 0 ? 'even' : 'odd';
+
+  console.log(a)
+</script>
+
+<script id="ch0104/04">
+  let a = prompt('任意输入一个字符，判断其ASCII是否是奇数，若是，输出YES，否则，输出NO')
+
+  a = a.keyCode % 2 == 0 ? 'NO' : 'YES';
+
+  console.log(a)
+</script>
+
+<script id="ch0104/05">
+  let a = Number(prompt('输入一个整数a比较它们的大小'))
+  let b = Number(prompt('输入一个整数b比较它们的大小'))
+
+  if (a === b) {
+    a = "="
+  } else if (a > b) {
+    a = ">"
+  } else {
+    a = "<"
+  }
+
+  console.log(a)
+</script>
+
+<script id="ch0104/06">
+  let a = Number(prompt('输入一个正整数，不超过1000'))
+
+  if (a < 100 && a >= 10) {
+    a = 1
+  } else {
+    a = 0
+  }
+
+  console.log(a)
+</script>
+
+<script id="ch0104/07">
+  let a = Number(prompt('输入一个“幸运”瓶盖整数a'))
+  let b = Number(prompt('输入一个“鼓励”瓶盖整数b'))
+
+  if (a >= 10 || b >= 20) {
+    a = 1
+  } else {
+    a = 0
+  }
+
+  console.log(a)
+</script>
+
+<script id="ch0104/08">
+  let a = Number(prompt('判断一个数n 能否同时被3和5整除,输入一个整数n'))
+
+  if (a % 3 == 0 && a % 5 == 0) {
+    a = "YES"
+  } else {
+    a = "NO"
+  }
+
+  console.log(a)
+</script>
+
+<script id="ch0104/09">
+  let a = Number(prompt('判断一个数n 能否同时被3和5整除,输入一个整数n'))
+
+  if (a % 3 == 0 && a % 5 == 0 && a % 7 == 0) {
+    console.log(3)
+    console.log(5)
+    console.log(7)
+  } else if (a % 3 == 0 && a % 5 == 0) {
+    console.log(3)
+    console.log(5)
+  } else if (a % 3 == 0 && a % 7 == 0) {
+    console.log(3)
+    console.log(7)
+  } else if (a % 5 == 0 && a % 7 == 0) {
+    console.log(5)
+    console.log(7)
+  } else {
+    console.log("n")
+  }
+</script>
+
+<script id="ch0104/10">
+  let a = Number(prompt('输入语文成绩a 0到100之间的整数'))
+  let b = Number(prompt('输入数学成绩b 0到100之间的整数'))
+  while (Math.abs(a) > 100 || Math.abs(b) > 100) {
+    a = Number(prompt('输入语文成绩a 0到100之间的整数'))
+    b = Number(prompt('输入数学成绩b 0到100之间的整数'))
+  }
+
+  if (a >= 60 && b >= 60) {
+    a = 0
+    console.log(a)
+  } else if(a < 60 && b < 60) {
+    a = 0
+    console.log(a)
+  } else {
+    a = 1
+    console.log(a)
+  }
+
+</script>
+
+<script id="ch0104/11">
+  let a = Number(prompt('输入一个的整数a 1<= a <=7表示从星期一到星期日'))
+
+  while (a > 7 || a < 1) {
+    a = Number(prompt('输入一个的整数a 1<= a <=7表示从星期一到星期日'))
+  }
+
+  const arr = [1, 3, 5]
+
+  a = arr.indexOf(a) > -1 ? "NO" : "YES";
+
+  console.log(a);
+</script>
+
+<script id="ch0104/12">
+  let a = Number(prompt('输入一个的整数a 表示一次办事要行走的距离'))
+  while (a < 0) {
+    a = Number(prompt('输入一个的整数a 表示一次办事要行走的距离'))
+  }
+
+  if (a > 100) {
+    a = "Bike"
+  } else if (a < 100) {
+    a = "Walk"
+  } else {
+    a = "All"
+  }
+
+  console.log(a);
+</script>
+
+<script id="ch0104/13">
+  let a = Number(prompt('输入一个浮点数N,0 <= N < 20'))
+  while (a < 0 || a > 20) {
+    a = Number(prompt('输入一个浮点数N,0 <= N < 20'))
+  }
+
+  if (a < 5 && a >= 0) {
+    a = -a + 2.5
+  } else if (a < 10 && a >= 5) {
+    a = 2 - 1.5 * (a - 3) * (a - 3)
+  } else {
+    a = a / 2 - 1.5
+  }
+
+  console.log(a.toFixed(3));
+</script>
+
+<script id="ch0104/14">
+  let a = Number(prompt('输入一个邮件的重量N,0 < N '))
+  let b = prompt('输入是否选择加急 y加急 n不加急')
+  while (a < 0 || b != 'y' && b != 'n') {
+    a = Number(prompt('输入一个邮件的重量N,0 < N '))
+    b = prompt('输入是否选择加急 y加急 n不加急')
+  }
+
+  if (a <= 1000) {
+    a = b == 'y' ? 13 : 8;
+  } else {
+    a = b == 'y' ? Math.ceil((a - 1000) / 500) * 4 + 13 : Math.ceil((a - 1000) / 500) * 4 + 8;
+  }
+
+  console.log(a);
+</script>
+
+<script id="ch0104/15">
+  let a = Number(prompt('输入一个整数a'))
+  let b = Number(prompt('输入一个整数b'))
+  let c = Number(prompt('输入一个整数c'))
+
+  console.log(Math.max(a,b,c));
+</script>
+
+<script id="ch0104/16">
+  let a = Number(prompt('输入一个正整数a'))
+  let b = Number(prompt('输入一个正整数b'))
+  let c = Number(prompt('输入一个正整数c'))
+  while (a < 0 || b < 0 || c < 0) {
+    a = Number(prompt('输入一个正整数a'))
+    b = Number(prompt('输入一个正整数b'))
+    c = Number(prompt('输入一个正整数c'))
+  }
+  const arr = [a,b,c];
+  if (a == 0 && b == 0 && c == 0) {
+    a = "no"
+  } else {
+    arr.sort();
+    a = arr[2]**2 == arr[0]**2 + arr[1]**2 ? "yes" : "no";
+  }
+
+  console.log(a);
+</script>
