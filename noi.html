@@ -533,8 +533,8 @@
   } else {
     d = (-b / (2 * a)).toFixed(5)
     e = (Math.sqrt(4 * a * c - b * b) / (2 * a)).toFixed(5)
-    console.log("x1=" + d + "+" + e + "i" + ";")
-    console.log("x2=" + d + "-" + e + "i")
+    console.log(d + "+" + e + "i")
+    console.log(d + "-" + e + "i")
   }
 </script>
 
@@ -544,4 +544,165 @@
   let c = Number(prompt('输入一个正整数c'))
 
   console.log(10 - Math.ceil(c / b))
+</script>
+
+<script id="ch0105/01">
+  let sum = 0;
+  let c = Number(prompt('输入一个正整数c'))
+
+  for(let i = 0; i < c; i++) {
+    let a = Number(prompt(`输入第${i}行正整数a`))
+    sum += a
+  }
+
+  console.log((sum/c).toFixed(2))
+</script>
+
+<script id="ch0105/02">
+  let sum = 0;
+  for (let i = 0; i < 12; i++) {
+    let a = Number(prompt(`输入第${i}行正整数a`))
+    sum += a
+  }
+
+  console.log("$" + (sum / 12).toFixed(2))
+</script>
+
+<script id="ch0105/03">
+  let sum = 0;
+  let c = Number(prompt('输入一个正整数c'))
+  for (let i = 0; i < c; i++) {
+    let a = Number(prompt(`输入第${i}行正整数a`))
+    sum += a
+  }
+
+  console.log((sum / c).toFixed(4))
+</script>
+
+<script id="ch0105/04">
+  let sum = 0;
+  let c = Number(prompt('输入一个正整数c'))
+  for (let i = 0; i < c; i++) {
+    let a = Number(prompt(`输入第${i}行正整数a`))
+    sum += a
+  }
+
+  console.log(sum)
+  console.log((sum / c).toFixed(5))
+</script>
+
+<script id="ch0105/05">
+  let sum = [];
+  let c = Number(prompt('输入一个正整数c'))
+  for (let i = 0; i < c; i++) {
+    let a = Number(prompt(`输入第${i}行正整数a`))
+    sum[i] = a
+  }
+  console.log(Math.max(...sum))
+</script>
+
+<script id="ch0105/06">
+  let sum = [];
+  let c = Number(prompt('输入一个正整数c'))
+  for (let i = 0; i < c; i++) {
+    let a = Number(prompt(`输入第${i}行正整数a`))
+    sum[i] = a
+  }
+  console.log(Math.max(...sum) - Math.min(...sum))
+</script>
+
+<script id="ch0105/07">
+  let a = 0
+  let b = 0
+  let c = 0
+  let d = Number(prompt('输入一个正整数d'))
+  for (let i = 0; i < d; i++) {
+    a += Number(prompt(`输入第${i}天金正整数a`))
+    b += Number(prompt(`输入第${i}天银正整数b`))
+    c += Number(prompt(`输入第${i}天铜正整数c`))
+  }
+  console.log(a)
+  console.log(b)
+  console.log(c)
+  console.log(a + b + c)
+</script>
+
+<script id="ch0105/08">
+  let a = 0
+  let d = Number(prompt('输入一个多边形d'))
+  for (let i = 0; i < d - 1; i++) {
+    a += Number(prompt(`输入${i}内角a`))
+  }
+  let sum = (d - 2) * 180
+
+  console.log(sum - a)
+</script>
+
+<script id="ch0105/09">
+  let a = Number(prompt('输入a'))
+  let b = Number(prompt('输入b'))
+  let sum = 0
+  for (let i = a; i <= b; i++) {
+    if (i % 2 != 0) {
+      sum += i 
+    }
+  }
+
+  console.log(sum)
+</script>
+
+<script id="ch0105/10">
+  let a = Number(prompt('输入a'))
+  let b = Number(prompt('输入b'))
+  let sum = 0
+  for (let i = a; i <= b; i++) {
+    if (i % 17 == 0) {
+      sum += i 
+    }
+  }
+
+  console.log(sum)
+</script>
+
+<script id="ch0105/11">
+  let a = Number(prompt('输入a'))
+  let sum = []
+  let b = 0
+  let c = 0
+  let d = 0
+  for (let i = 0; i < a; i++) {
+    let e = Number(prompt(`输入第${i}个数`))
+    sum[i] = e
+  }
+  sum.forEach(val => {
+    if(val==1) {
+      b++
+    } else if(val == 5) {
+      c++
+    } else if(val == 10) {
+      d++
+    }
+  })
+
+  console.log(b)
+  console.log(c)
+  console.log(d)
+</script>
+
+<script id="ch0105/12">
+  let a = Number(prompt('输入a'))
+  let b = Number(prompt('输入b'))
+  let d = 0
+  let sum = []
+  for (let i = 0; i < a; i++) {
+    let c = Number(prompt(`输入第${i}个数`))
+    sum[i] = c
+  }
+  sum.forEach(val => {
+    if (val == b) {
+      d++
+    }
+  })
+
+  console.log(d)
 </script>
