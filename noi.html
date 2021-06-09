@@ -464,3 +464,84 @@
 
   console.log(a);
 </script>
+
+<script id="ch0104/17">
+  let a = Number(prompt('输入一个正整数a 如果公元a年是闰年输出Y，否则输出N'))
+
+  while (a <= 0 || a > 3000) {
+    a = Number(prompt('输入一个正整数a 如果公元a年是闰年输出Y，否则输出N'))
+
+  }
+
+  if ((a % 4 == 0 && a % 100 != 0) || a % 400 == 0) {   
+    a = "Y"
+  } else {
+    a = "N"
+  }
+
+  console.log(a);
+</script>
+
+<script id="ch0104/18">
+  let a = Number(prompt('输入一个正整数a'))
+  let b = Number(prompt('输入一个正整数b'))
+
+
+  if (a >= -1 && a <= 1 && b >= -1 && b <= 1) {   
+    a = "yes"
+  } else {
+    a = "no"
+  }
+
+  console.log(a);
+</script>
+
+<script id="ch0104/19">
+  let a = Number(prompt('输入一个正整数a'))
+  let b = Number(prompt('输入一个正整数b'))
+  let c = prompt('输入一个符号c')
+  switch (c) {
+    case "+":
+      console.log(a + b)
+      break;
+    case "*":
+      console.log(a * b)
+      break;
+    case "-":
+      console.log(a - b)
+      break;
+    case "/":
+      console.log(a / b)
+      break;
+    default:
+      console.log("Invalid operator!")
+  }
+
+</script>
+
+<script id="ch0104/20">
+  let a = Number(prompt('输入一个正整数a'))
+  let b = Number(prompt('输入一个正整数b'))
+  let c = Number(prompt('输入一个正整数c'))
+  let d = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a)
+  let e = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a)
+  if (b ** 2 == 4 * a * c) {
+    console.log(d.toFixed(5))
+  } else if (b ** 2 > 4 * a * c) {
+    console.log(d.toFixed(5))
+    console.log(e.toFixed(5))
+  } else {
+    d = (-b / (2 * a)).toFixed(5)
+    e = (Math.sqrt(4 * a * c - b * b) / (2 * a)).toFixed(5)
+    console.log(d + "+" + e + "i")
+    console.log(d + "-" + e + "i")
+  }
+</script>
+
+<script id="ch0104/21">
+  let a = Number(prompt('输入一个正整数a'))
+  let b = Number(prompt('输入一个正整数b'))
+  let c = Number(prompt('输入一个正整数c'))
+
+  console.log(10 - Math.ceil(c / b))
+</script>
