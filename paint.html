@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>画图</title>
+  <style>
+    canvas {
+      border: 2px solid #f0f;
+      display: block;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas width="500" height="500"></canvas>
+</body>
+<script>
+  var canvas = document.querySelector('canvas')
+  canvas.style.imageRendering = 'pixelated' //放大时的插帧方式：不插帧，直接放大像素
+  var ctx = canvas.getContext('2d')
+
+  function dot(x, y, color = 'black') {
+    x = Math.round(x)
+    y = Math.round(y)
+    ctx.fillStyle = color
+    ctx.fillRect(x, y, 1, 1)
+  }
+  /**
+   * YOUR TASK
+      * 在 坐标 (42, 42) 画出一个点
+      * 画一条实线
+      * 画一条一个实点一个空点的虚线
+      * 画一条两个实点两个空点的虚线
+      * 画一条三个实点两个空点的虚线
+      * 画一条45度的斜线
+      * 画一条30度的斜线（与x轴或y轴的夹角呈30度）
+      * 画一条跨越画布左上角和右下角的对角线
+      * 画一个空心矩形
+      * 画一个实心矩形
+      * 画两个个空心的圆，居中：
+        * 一个半径为50像素
+        * 一个半径为200像素
+      * 画一个实心的圆，半径至少为100像素
+      * 画一个【大小合适】的sin(x)的图像
+
+      * 画出rgb色彩空间的某一面（尺寸要大于100x100）
+        如果做出上一题后，尝试将其每个点的坐标乘以一个矩阵（如(2,0,0,2)或(1,0.27得到新的位置，即绘制出被线性变幻后的色彩空间某一面
+        可以考虑如下几种矩阵：
+           2 0
+           0 2
+           ------
+           1  0.27
+           0  1
+           ------
+           0.5    0.87
+           -0.87  0.5
+
+   */
+</script>
+<script>
+  // 不可更改上面的代码
+  // 你的代码写在这里
+  // YOUR CODE GOES BELOW
+  let point = dot(42, 42);
+
+  function solid(x, y) {
+    for (let i = 0; i < 200; i++) {
+      dot(x, 32);
+      x++;
+    }
+  }
+  let line = solid(20, 20);
+
+  function dotted() {
+    let dotted = 20;
+    for (let i = 0; i < 100; i++) {
+      dot(dotted, 22);
+      dotted += 2;
+    }
+  }
+  let dottedLine = dotted();
+
+  function dottedTwo() {
+    let dotted = 20;
+    let counter = 0;
+    for (let i = 0; i <= 200; i++) {
+      if (counter <= 2) {
+        dot(dotted, 52);
+        dotted += 1;
+        counter++;
+      } else if (counter <= 4 && counter > 2) {
+        dot(dotted, 52, "white");
+        dotted += 1;
+        counter++;
+      } else {
+        counter = 0;
+      }
+    }
+  }
+  let dottedTwoLine = dottedTwo();
+
+  function dottedThree() {
+    let dotted = 20;
+    let counter = 0;
+    for (let i = 0; i <= 200; i++) {
+      if (counter <= 3) {
+        dot(dotted, 62);
+        dotted += 1;
+        counter++;
+      } else if (counter <= 5 && counter > 3) {
+        dot(dotted, 62, "white");
+        dotted += 1;
+        counter++;
+      } else {
+        counter = 0;
+      }
+    }
+  }
+  let dottedThreeLine = dottedThree();
+
+  function slash() {
+    let x = 20;
+    let y = 70;
+    for (let i = 0; i < 50; i++) {
+      dot(x, y);
+      x++;
+      y++;
+    }
+  }
+  let slashLine = slash();
+
+  function degThirty() {
+    let x = 70;
+    let y = 70;
+    for (let i = 0; i < 50; i++) {
+      dot(x, y);
+      y++;
+      x += getTanDeg(30);
+    }
+  }
+
+  function getTanDeg(deg) {
+    var rad = deg * Math.PI / 180;
+    return Math.tan(rad);
+  }
+  let degThirtyLine = degThirty();
+
+  function diagonal() {
+    let x = 0;
+    let y = 0;
+    for (let i = 0; i < 707; i++) {
+      dot(x, y, "blue");
+      x++;
+      y++;
+    }
+  }
+  let diagonalLine = diagonal();
+
+  function rectangular() {
+    let x = 250;
+    let y = 20;
+
+    function line(x, y) {
+      for (let i = 0; i < 100; i++) {
+        dot(x, y, "red");
+        x++;
+      }
+    }
+
+    while (y < 120) {
+      line(x, y);
+      y++;
+    }
+  }
+  let rect = rectangular();
+
+  function rectHollow() {
+    let x = 370;
+    let y = 20;
+
+    function lineX(x, y) {
+      for (let i = 0; i < 100; i++) {
+        dot(x, y, "blue");
+        x++;
+      }
+    }
+
+    function lineY(x, y) {
+      for (let i = 0; i < 100; i++) {
+        dot(x, y, "blue");
+        y++;
+      }
+    }
+    lineX(x, y);
+    lineX(x, 120);
+    lineY(x, y);
+    lineY(470, y);
+  }
+  let hollow = rectHollow();
+
+  function circle(_x, _y, _r, color) {
+    let deg = 0;
+    let x = 0;
+    let y = 0;
+    for (let i = 0; i < 360; i += 0.5) {
+      deg = i * Math.PI / 180;
+      x = _r * Math.cos(deg) + _x;
+      y = _r * Math.sin(deg) + _y;
+      dot(x, y, color);
+    }
+
+  }
+  let circleSmall = circle(200, 250, 50, "red");
+  let circleLarge = circle(200, 250, 200, "blue");
+
+  function circleS(_x, _y, _r, color) {
+    let r = _r;
+    while (r > 0) {
+      circle(_x, _y, r, color);
+      r -= 0.5;
+    }
+
+  }
+  let circleSolid = circleS(395, 230, 100, "pink");
+
+  function sine(_x, _y, color) {
+    let x = _x;
+    let y = _y;
+    let deg = 0;
+    for (let i = 0; i < 360; i++) {
+      dot(x, y, color);
+      x++;
+      y += getSinDeg(i);
+    }
+
+  }
+
+  function getSinDeg(deg) {
+    var rad = deg * Math.PI / 180;
+    return Math.sin(rad);
+  }
+  let sineline = sine(20, 360, "red");
+
+  function gradient(_x, _y, matrix) {
+    let x = 0;
+    let y = 0;
+    let r = 0;
+    let g = 0;
+
+    function line(x, y) {
+      for (let i = 0; i < 100; i++) {
+        if (!matrix) {
+          r = x;
+          g = x;          
+        } else {
+          r = x * matrix[0] + x * matrix[1];
+          g = x * matrix[3] + x * matrix[4];
+        }
+        dot(x + _x, y + _y, `rgb(${r},${g},0)`);
+        x++;
+      }
+    }
+    while (y < 100) {
+      line(x, y);
+      y++;
+    }
+  }
+  debugger
+  let gradientRect = gradient(150, 320);
+  let matrixGradient = gradient(20, 200, [2, 0, 0, 2]);
+</script>
+
+</html>
