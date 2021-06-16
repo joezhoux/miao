@@ -131,13 +131,19 @@
   }
   let slashLine = slash();
 
-  function degThirty() {
+  function degThirty(deg) {
     let x = 70;
     let y = 70;
     for (let i = 0; i < 50; i++) {
       dot(x, y);
-      y++;
-      x += getTanDeg(30);
+      if (deg <= 45) {
+        y++;
+        x += getTanDeg(deg);
+      } else {
+        y += getTanDeg(deg - 30);
+        x++;
+      }
+
     }
   }
 
@@ -145,7 +151,7 @@
     var rad = deg * Math.PI / 180;
     return Math.tan(rad);
   }
-  let degThirtyLine = degThirty();
+  let degThirtyLine = degThirty(30);
 
   function diagonal() {
     let x = 0;
@@ -246,30 +252,21 @@
   function gradient(_x, _y, matrix) {
     let x = 0;
     let y = 0;
-    let r = 0;
-    let g = 0;
-
-    function line(x, y) {
-      for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 100; i++) {
+      for (let j = 0; j < 100; j++) {
         if (!matrix) {
-          r = x;
-          g = x;          
+          dot(j + _x, i + _y, `rgb(${j * 2.56},${i * 2.56},0)`);
         } else {
-          r = x * matrix[0] + x * matrix[1];
-          g = x * matrix[3] + x * matrix[4];
+          x = j * matrix[0] + i * matrix[1];
+          y = j * matrix[2] + i * matrix[3];
+          dot(x + _x, y + _y, `rgb(${x * 2.56},${y * 2.56},0)`);
         }
-        dot(x + _x, y + _y, `rgb(${r},${g},0)`);
-        x++;
       }
     }
-    while (y < 100) {
-      line(x, y);
-      y++;
-    }
   }
-  debugger
   let gradientRect = gradient(150, 320);
-  let matrixGradient = gradient(20, 200, [2, 0, 0, 2]);
+  let matrixGradient = gradient(20, 200, [1, 0, 0.27, 1]);
+  let matrixGradient1 = gradient(400, 350, [0.5, -0.87, 0.87, 0.5]);
 </script>
 
 </html>
