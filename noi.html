@@ -1317,16 +1317,26 @@
   let m = Number(prompt(`输入1个数 b 月份`));
 
   function weekday(y, m, d = 1) {
-    const wd = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
-    if (m == 1) {
-      m = 13;
+    const wd = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+    const md = m * 100 + d;
+    if (m == 1 || m == 2) {
+      m += 12;
       y--;
     }
-    if (m == 2) {
-      m = 14;
-      y--;
+    let c = Math.floor(y / 100);
+    let y1 = y % 100;
+    let w = 0;
+    if (y <= 1582 && md <= 1004) {
+      w = y1 + Math.floor(y1 / 4) - c + Math.floor(26 * (m + 1) / 10) + d + 4;
+    } else {
+      w = Math.floor(c / 4) - 2 * c + y1 + Math.floor(y1 / 4) + Math.floor(26 * (m + 1) / 10) + d - 1;
     }
-    let w = Math.floor((d + 2 * m + 3 * (m + 1) / 5 + y + y / 4 - y / 100 + y / 400) % 7);
+
+    if (w < 0) {
+      w = (w % 7 + 7) % 7;
+    } else {
+      w = w % 7;
+    }
     return wd[w];
   }
   console.log(weekday(y, m));
@@ -1370,4 +1380,83 @@
     }
   }
   completeNumbers();
+</script>
+
+<script id="prime">
+  let n = Number(prompt(`输入1个数 n 判断是否是素数`));
+
+  function prime(n) {
+    let count = 0;
+    for (let i = 1; i <= Math.sqrt(n); i++) {
+      if (n % i == 0) {
+        count++;
+      }
+    }
+    if (count == 1) {
+      console.log("YES");
+    } else {
+      console.log("NO");
+    }
+  }
+  prime(n);
+</script>
+
+<script id="primes">
+  let n = Number(prompt(`输入1个数 n 判断是否是素数`));
+
+  function primes(n) {
+    let count = 0;
+    for (let i = 2; i <= n; i++) {
+      for (let j = 1; j <= Math.sqrt(i); j++) {
+        if (i % j == 0) {
+          count++;
+        }
+      }
+      if (count == 1) {
+        console.log(i);
+      }
+      count = 0;
+    }
+  }
+  primes(n);
+</script>
+
+<script id="lcf&lcm">
+  let m = Number(prompt(`输入1个数 m `));
+  let n = Number(prompt(`输入1个数 n `));
+
+  function lcfAndLcm(m, n) {
+    let temp = 0;
+    if (m < n) {
+      temp = m;
+      m = n;
+      n = temp;
+    }
+    while (n != 0) {
+      temp = m % n;
+      m = n;
+      n = temp;
+    }
+    return m;
+  }
+  console.log(lcfAndLcm(m, n), m * n / lcfAndLcm(m, n));
+</script>
+
+<script id="sqrt">
+  let m = Number(prompt(`输入1个数 m `));
+  function sqrt(m) {
+
+    let l = 0;
+    let r = m;
+    while (r == l || r - l >= 0.001) {
+      let mid = (r + l) / 2;
+      if (mid ** 2 > m) {
+        r = mid;
+      } else {
+        l = mid;
+      }
+    }
+    return l.toFixed(3);
+  }
+  console.log(sqrt(m));
 </script>
