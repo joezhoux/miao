@@ -1,5 +1,3 @@
-"use strict";
-
 var joezhoux = {
   _identity: function (val, e) {
     if (typeof(e) == "function") {
@@ -87,6 +85,3 @@ var joezhoux = {
   },
 
 }
-
-
-console.log(joezhoux.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x'));
