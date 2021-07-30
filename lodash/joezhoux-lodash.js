@@ -1,4 +1,16 @@
 var joezhoux = {
+  _isLength: function (val) {
+    return typeof val == "number" && val > -1;
+  },
+  _isObject: function (val) {
+    return val != null && (typeof val == "object" || typeof val == "function");
+  },
+  _isFunction: function (val) {
+    return val != null && typeof val == "function";
+  },
+  _isArrayLike: function (val) {
+    return val != null && this._isLength(val.length) && !this._isFunction(val);
+  },
   _identity: function (val, e) {
     if (typeof (e) == "function") {
       return e(val);
@@ -6,17 +18,7 @@ var joezhoux = {
       return val[e];
     }
   },
-  _arrayEach: function (array, iteratee) {
-    var index = -1,
-      length = array == null ? 0 : array.length;
-
-    while (++index < length) {
-      if (iteratee(array[index], index, array) === false) {
-        break;
-      }
-    }
-    return array;
-  },
+  //****************************************************************
   chunk: function (array, size = 1) {
     if (size < 1) return [];
 
@@ -166,7 +168,55 @@ var joezhoux = {
     return ans;
   },
   forEach: function (array, fuc) {
-
+    if (Array.isArray(array)) {
+      for (let i = 0; i < array.length; i++) {
+        fuc(array[i]);
+      }
+    } else {
+      for (let k in array) {
+        if (array.hasOwnProperty(k)) {
+          fuc(array[k], k);
+        }
+      }
+    }
+  },
+  map: function (array, fuc) {
+    let ans = [];
+    if (Array.isArray(array)) {
+      for (let i = 0; i < array.length; i++) {
+        if (typeof fuc == "string") {
+          ans.push(array[i][fuc]);
+        } else {
+          ans.push(fuc(array[i]));
+        }
+      }
+    } else {
+      for (let k in array) {
+        if (array.hasOwnProperty(k)) {
+          ans.push(fuc(array[k], k));
+        }
+      }
+    }
+    return ans;
+  },
+  filter: function (array, f) {
+    let ans = [];
+    if (this._isFunction(f)) {
+      for (let i = 0; i < array.length; i++) {
+        if(fuc(array[i])) {
+          ans.push(array[i]);
+        }
+      }
+    } else if (xxx) {
+      xxx;
+    }
   },
 }
 
+
+// filter, reduce, zip, unzip
+// keys, values,reverse, countBy,reduceRight,shuffle,
+// isNaN, isNull, isNil, isUndefined, toArray, sum, sumBy 
+// every, some, fill
+// sortBy
+// isEqual
