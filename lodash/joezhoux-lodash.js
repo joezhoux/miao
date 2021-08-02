@@ -64,7 +64,7 @@ var joezhoux = {
     }
     return result;
   },
-  differenceBy: function (array, diff, iteratee) {
+  differenceBy: function (array, ...diff) {
 
   },
   uniq: function (array) {
@@ -211,6 +211,7 @@ var joezhoux = {
       xxx;
     }
   },
+
 }
 
 

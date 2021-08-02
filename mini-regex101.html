@@ -6,113 +6,112 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <style>
-    div {
-      display: flex;
-      justify-content: center;
-    }
-
-    .box {
-      flex-direction: column;
-    }
-
-    textarea {
-      margin-top: 5px;
-    }
-
-    p {
-      margin: 5px;
-      text-align: center;
-      color: red;
-    }
-
-    #result {
-      flex-direction: column;
-    }
-  </style>
+  <link rel="stylesheet" href="./style/mini-regex101.css">
 </head>
 
 <body>
-  <div class="">
-    <label for="rexInput">请输入正则表达式</label>
-    <input type="text" id="rexInput">
-    <label for="g"><input type="checkbox" id="g" onclick="getFlags()">g</label>
-    <label for="i"><input type="checkbox" id="i" onclick="getFlags()">i</label>
-    <label for="m"><input type="checkbox" id="m" onclick="getFlags()">m</label>
+  <div class="main">
+    <div class="top-bar">
+      <div class="rex-input">
+        <label for="rexInput">请输入正则表达式</label>
+        <input type="text" id="rexInput">
+      </div>
+      <div class="flags">
+        <label for="g"><input type="checkbox" id="g" onclick="getFlags()">g</label>
+        <label for="i"><input type="checkbox" id="i" onclick="getFlags()">i</label>
+        <label for="m"><input type="checkbox" id="m" onclick="getFlags()">m</label>
+      </div>
+    </div>
+    <div>
+      <label for="strContent">请输入内容</label>
+      <span id="regError" class="error"></span>
+    </div>
+    <div class="rex-box">
+      <pre id="result"></pre>
+      <textarea onscroll="setScroll()" class="str-content" id="strContent" cols="30" rows="10">foobarbaz aaabbccc
+          ddddoofob foa foceeefoofsl lksdjf
+        129842 foo
+      sd942034 234 lsfowe</textarea>
+    </div>
   </div>
-  <div class="box">
-    <p id="eorr"></p>
-    <label for="strContent">请输入内容</label>
-    <textarea id="strContent" cols="30" rows="10"></textarea>
-  </div>
-  <div id="result"></div>
-
-  <script>
-    function getFlags() {
-      let flags = ''
-      if (i.checked) {
-        flags += 'i'
-      }
-      if (g.checked) {
-        flags += 'g'
-      }
-      if (m.checked) {
-        flags += 'm'
-      }
-      return flags
+</body>
+<script>
+    function setScroll() {
+    let scrollTop = strContent.scrollTop
+    result.scrollTop = scrollTop
+  }
+  function getFlags() {
+    let flags = ''
+    if (i.checked) {
+      flags += 'i'
     }
+    if (g.checked) {
+      flags += 'g'
+    }
+    if (m.checked) {
+      flags += 'm'
+    }
+    return flags
+  }
 
-    function regex() {
-      let re = rexInput.value
-      let str = strContent.value.trim()
-      let flags = getFlags()
-      let rex
-      let match
-      try {
-        rex = new RegExp(re, flags)
-        eorr.innerHTML = ''
-      } catch (error) {
-        eorr.innerHTML = '正则表达式错误'
-        result.innerHTML = ''
-        return
-      }
-      if (re == '') {
-        result.innerHTML = ''
-        return
-      } else if (str == '') {
-        return
-      } else {
-        if (rex.global) {
-          let resultHTML = ''
-          while (match = rex.exec(str)) {
-            resultHTML += '<div>' + match + '    ' + 'index: ' + match.index + '</div>'
-            if (match[0] == '') {
-              rex.lastIndex++
-            }
-          }
-          result.innerHTML = resultHTML
-        } else {
-          let resultHTML = ''
-          match = rex.exec(str)
-          resultHTML += '<div>' + match + '    ' + 'index: ' + match.index + '</div>'
-          result.innerHTML = resultHTML
+  function regex() {
+    let re = rexInput.value
+    let str = strContent.value
+    let flags = getFlags()
+    let rex
+    let match
+    let resultHTML
+    let lastIndex
+    if (re == '') {
+      result.innerHTML = ''
+      regError.innerHTML = ''
+      return
+    } else if (str == '') {
+      return
+    }
+    try {
+      rex = new RegExp(re, flags)
+      regError.innerHTML = ''
+    } catch (error) {
+      regError.innerHTML = '正则表达式格式错误'
+      result.innerHTML = ''
+      return
+    }
+    if (rex.global) {
+      resultHTML = ''
+      lastIndex = rex.lastIndex
+      while (match = rex.exec(str)) {
+        resultHTML += str.slice(lastIndex, match.index)
+        resultHTML += `<span>${match[0]}</span>`
+        lastIndex = rex.lastIndex
+        if (match[0] == '') {
+          rex.lastIndex++
         }
       }
+      resultHTML += str.slice(lastIndex)
+      result.innerHTML = resultHTML + '\n'
+    } else {
+      let resultHTML = ''
+      match = rex.exec(str)
+      if (!match) return
+      resultHTML += str.slice(0, match.index)
+      resultHTML += `<span>${match[0]}</span>`
+      resultHTML += str.slice(match[0].length + match.index)
+      result.innerHTML = resultHTML + '\n'
     }
+  }
 
-    function debounce(callback, delay = 500) {
-      let timeout = null;
-      return (e) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          callback(e);
-        }, delay);
-      };
-    }
-    let r = debounce(regex)
-    document.getElementById('rexInput').addEventListener('keyup', r, false)
-  </script>
-</body>
 
+  let reg = document.getElementById('rexInput')
+  let flg = document.querySelectorAll('.flags label')
+  reg.addEventListener('input', el => {
+    regex()
+  })
+  flg.forEach(e => {
+    e.addEventListener('click', el => {
+      regex()
+    })
+  })
+</script>
 
 </html>
