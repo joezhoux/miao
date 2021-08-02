@@ -71,13 +71,14 @@
     }
     try {
       rex = new RegExp(re, flags)
+      console.dir(rex)
       regError.innerHTML = ''
     } catch (error) {
       regError.innerHTML = '正则表达式格式错误'
       result.innerHTML = ''
       return
     }
-    if (rex.global) {
+    if (rex.multiline && rex.global) {
       resultHTML = ''
       lastIndex = rex.lastIndex
       while (match = rex.exec(str)) {
@@ -89,6 +90,28 @@
         }
       }
       resultHTML += str.slice(lastIndex)
+      result.innerHTML = resultHTML + '\n'
+    } else if (rex.global) {
+      let s = [...str]
+      let strs = ''
+      for (let i = 0; i < s.length; i++) {
+        if (s[i] != '\n') {
+          strs = strs + s[i]
+        } else {
+          break
+        }
+      }
+      resultHTML = ''
+      lastIndex = rex.lastIndex
+      while (match = rex.exec(strs)) {
+        resultHTML += strs.slice(lastIndex, match.index)
+        resultHTML += `<span>${match[0]}</span>`
+        lastIndex = rex.lastIndex
+        if (match[0] == '') {
+          rex.lastIndex++
+        }
+      }
+      resultHTML += strs.slice(lastIndex)
       result.innerHTML = resultHTML + '\n'
     } else {
       let resultHTML = ''
@@ -104,6 +127,7 @@
 
   let reg = document.getElementById('rexInput')
   let flg = document.querySelectorAll('.flags label')
+  let text = document.getElementById('strContent')
   reg.addEventListener('input', el => {
     regex()
   })
@@ -111,6 +135,9 @@
     e.addEventListener('click', el => {
       regex()
     })
+  })
+  text.addEventListener('input', el => {
+    regex()
   })
 </script>
 
