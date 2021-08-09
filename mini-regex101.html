@@ -10,28 +10,44 @@
 </head>
 
 <body>
-  <div class="main">
-    <div class="top-bar">
-      <div class="rex-input">
-        <label for="rexInput">请输入正则表达式</label>
-        <input type="text" id="rexInput">
+  <div class="regex101">
+    <div class="main">
+      <div class="top-bar">
+        <div class="rex-input">
+          <label for="rexInput">请输入正则表达式</label>
+          <input type="text" id="rexInput">
+        </div>
+        <div class="flags">
+          <label for="g"><input type="checkbox" id="g" onclick="getFlags()">g</label>
+          <label for="i"><input type="checkbox" id="i" onclick="getFlags()">i</label>
+          <label for="m"><input type="checkbox" id="m" onclick="getFlags()">m</label>
+        </div>
       </div>
-      <div class="flags">
-        <label for="g"><input type="checkbox" id="g" onclick="getFlags()">g</label>
-        <label for="i"><input type="checkbox" id="i" onclick="getFlags()">i</label>
-        <label for="m"><input type="checkbox" id="m" onclick="getFlags()">m</label>
+      <div>
+        <label for="strContent">请输入内容</label>
+        <span id="regError" class="error"></span>
+      </div>
+      <div class="rex-box">
+        <pre id="result"></pre>
+        <textarea onscroll="setScroll()" class="str-content" id="strContent" cols="30" rows="10">foobarbaz aaabbccc
+            ddddoofob foa foceeefoofsl lksdjf
+          129842 foo
+        sd942034 234 lsfowe</textarea>
+      </div>
+      <div class="replace-box" id="replace">
+        <div class="re-box">
+          <label for="">替换</label>
+          <input type="text" class="re-input" id="reInput">
+        </div>
+        <div class="re-content">aaa</div>
       </div>
     </div>
-    <div>
-      <label for="strContent">请输入内容</label>
-      <span id="regError" class="error"></span>
-    </div>
-    <div class="rex-box">
-      <pre id="result"></pre>
-      <textarea onscroll="setScroll()" class="str-content" id="strContent" cols="30" rows="10">foobarbaz aaabbccc
-          ddddoofob foa foceeefoofsl lksdjf
-        129842 foo
-      sd942034 234 lsfowe</textarea>
+    <div class="macth-nav">
+      <h3>匹配信息</h3>
+      <div class="macth-new">
+        <div>match</div>
+        <div>new</div>
+      </div>
     </div>
   </div>
 </body>

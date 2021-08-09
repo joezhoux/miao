@@ -5,11 +5,10 @@
   font-size: 14px;
 }
 
-.main {
+.regex101 {
   width: 100vw;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 .top-bar {
@@ -70,4 +69,46 @@
   position: relative;
   background-color: transparent;
   z-index: 10;
+}
+
+.replace-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.re-box {
+  margin-top: 10px;
+}
+
+.replace-box .re-input {
+  width: 250px;
+}
+
+.re-content {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  border: 1px solid #f1f2f6;
+  padding: 5px;
+  margin: 10px;
+}
+
+.macth-nav {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f1f2f6;
+}
+.macth-nav h3 {
+  margin-top: 10px;
+  padding: 5px;
+  border-bottom: 1px solid #f1f2f6;
+}
+
+.macth-new {
+  width: 160px;
+  display: flex;
+}
+.macth-new div {
+  width: 80px;
 }
