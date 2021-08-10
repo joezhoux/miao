@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    canvas {
+      width: 500px;
+      height: 500px;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="paintBoard" width="500" height="500"></canvas>
+  <input type="color" id="inputColor">
+  <button onclick="canvasUndo">撤销</button>
+</body>
+<script>
+  let drawing = false
+  let x = 0, y = 0
+  const paint = document.querySelector('#paintBoard')
+  const context = paint.getContext('2d')
+  const colorInput = document.querySelector('#inputColor')
+  let step = -1
+  let canvasHistory = []
+
+  paint.addEventListener('mousedown', e => {
+    x = e.offsetX
+    y = e.offsetY
+    drawing = true
+  })
+
+  paint.addEventListener('mousemove', e => {
+    if (drawing == true) {
+      drawLine(context, x, y, e.offsetX, e.offsetY)
+      x = e.offsetX
+      y = e.offsetY
+    }
+  })
+
+  paint.addEventListener('mouseup', e => {
+    if (drawing == true) {
+      drawLine(context, x, y, e.offsetX, e.offsetY)
+      x = 0
+      y = 0
+      drawing = false
+    }
+  })
+
+  function drawLine(context, x1, y1, x2, y2) {
+    step++
+    if (step < canvasHistory.length) {
+      canvasHistory.length = step
+    }
+
+    context.beginPath()
+    context.strokeStyle = colorInput.value
+    context.lineWidth = 1
+    context.moveTo(x1, y1)
+    context.lineTo(x2, y2)
+    context.stroke()
+
+    canvasHistory.push(paint.toDataURL())
+
+    context.closePath()
+  }
+
+  function canvasUndo() {
+    if (step >= 0) {
+      step--
+      context.clearRect(0, 0, paint.width, paint.hight)
+      let canvasPic = new Image()
+      canvasPic.src = canvasHistory[step]
+      canvasPic.addEventListener('load', e => {
+        context.drawImage(canvasPic, 0, 0)
+      })
+      console.log(1)
+    } else {
+      alert('无法再撤销')
+    }
+  }
+
+</script>
+</html>

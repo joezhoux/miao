@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    section {
+      position: relative;
+      left: 100px;
+      top: 100px;
+      width: 300px;
+      height: 300px;
+      border: 1px solid red;
+    }
+
+    button {
+      position: relative;
+      left: 100px;
+      top: 110px;
+    }
+
+    main {
+      width: 4px;
+      height: 4px;
+      background-color: black;
+      position: absolute;
+      z-index: 1;
+    }
+
+    .letf-top,
+    .left-bottom,
+    .right-top,
+    .right-bottom {
+      width: 100px;
+      height: 100px;
+      border: 1px solid red;
+      position: absolute;
+      box-sizing: border-box;
+    }
+
+    .letf-top {
+      left: 30px;
+      top: 30px;
+    }
+
+    .box {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      left: 2px;
+      top: 2px;
+      background-color: sandybrown;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <div class="letf-top"></div>
+    <main style="left: 140px; top: 140px;"></main>
+    <div class="box"></div>
+  </section>
+  <button id="play">开始</button>
+  <button id="again">再来一次</button>
+</body>
+<script>
+  let play = document.querySelector('#play')
+  let again = document.querySelector('#again')
+  let main = document.querySelector('main')
+  let vx = 0, vy = 0
+  let win = ''
+  let lose = ''
+  play.addEventListener('click', e => {
+    game()
+  })
+  again.addEventListener('click', e => {
+    location.reload()
+  })
+
+  function game() {
+
+    let leftDown = false
+    let rightDown = false
+    let upDown = false
+    let downDown = false
+    let lastTime = 0
+    let box = document.querySelector('.box')
+
+
+    document.addEventListener('keydown', e => {
+      //(left 37 | 65) (right 39 | 68) (up 38 | 87) (down 40 | 83)
+      if (e.keyCode == 37 || e.keyCode == 65) {
+        vx = -1
+        leftDown = true
+      }
+      if (e.keyCode == 39 || e.keyCode == 68) {
+        vx = 1
+        rightDown = true
+      }
+      if (e.keyCode == 38 || e.keyCode == 87) {
+        vy = -1
+        upDown = true
+      }
+      if (e.keyCode == 40 || e.keyCode == 83) {
+        vy = 1
+        downDown = true
+      }
+    })
+
+    document.addEventListener('keyup', e => {
+      if (e.keyCode == 37 || e.keyCode == 65) {
+        leftDown = false
+        if (rightDown) {
+          vx = 1
+        } else {
+          vx = 0
+        }
+      }
+      if (e.keyCode == 39 || e.keyCode == 68) {
+        rightDown = false
+        if (leftDown) {
+          vx = -1
+        } else {
+          vx = 0
+        }
+      }
+      if (e.keyCode == 38 || e.keyCode == 87) {
+        upDown = false
+        if (downDown) {
+          vy = -1
+        } else {
+          vy = 0
+        }
+      }
+      if (e.keyCode == 40 || e.keyCode == 83) {
+        downDown = false
+        if (upDown) {
+          vy = 1
+        } else {
+          vy = 0
+        }
+      }
+    })
+
+    requestAnimationFrame(function move(time) {
+      let timeDiff = time - lastTime
+      lastTime = time
+      if (parseFloat(main.style.left) <= 0 || parseFloat(main.style.top) <= 0 || 
+      parseFloat(main.style.left) >= 296 || parseFloat(main.style.top) >= 296) {
+        if (lose != 'You Lose!') {
+          alert('You Lose!')
+          lose = ''
+        } else {
+          lose = 'You Lose!'
+        }
+        return
+      } else {
+        main.style.left = parseFloat(main.style.left) + vx * timeDiff * 0.2 + 'px'
+        main.style.top = parseFloat(main.style.top) + vy * timeDiff * 0.2 + 'px'
+      }
+
+      console.log(main.style.left, main.style.top)
+      if (parseFloat(main.style.left) <= 134 && parseFloat(main.style.left) >= 26 &&
+        parseFloat(main.style.top) <= 134 && parseFloat(main.style.top) >= 26) {
+        if (lose != 'You Lose!') {
+          alert('You Lose!')
+          lose = ''
+        } else {
+          lose = 'You Lose!'
+        }
+        return
+      } else if (parseFloat(main.style.left) <= 4 && parseFloat(main.style.top) <= 4) {
+        if (win != 'You Win!') {
+          alert('You Win!')
+          win = ''
+        } else {
+          win = 'You Win!'
+        }
+        
+        return
+      }
+      requestAnimationFrame(move)
+    })
+  }
+</script>
+
+</html>
