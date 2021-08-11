@@ -18,72 +18,79 @@
 <body>
   <canvas id="paintBoard" width="500" height="500"></canvas>
   <input type="color" id="inputColor">
-  <button onclick="canvasUndo">撤销</button>
+  <button>撤销</button>
 </body>
 <script>
   let drawing = false
-  let x = 0, y = 0
   const paint = document.querySelector('#paintBoard')
   const context = paint.getContext('2d')
   const colorInput = document.querySelector('#inputColor')
-  let step = -1
-  let canvasHistory = []
+  let btn = document.querySelector('button')
+  let pathHistory = []
+  let points = []
+  let mouse = {x: 0, y: 0}
+  let history = {x: 0, y: 0}
 
   paint.addEventListener('mousedown', e => {
-    x = e.offsetX
-    y = e.offsetY
     drawing = true
+    history = {x: mouse.x, y: mouse.y}
+    mouse = {x: e.offsetX, y: e.offsetY}
+    points = []
+    points.push({x: mouse.x, y: mouse.y, color: context.strokeStyle})
   })
 
   paint.addEventListener('mousemove', e => {
     if (drawing == true) {
-      drawLine(context, x, y, e.offsetX, e.offsetY)
-      x = e.offsetX
-      y = e.offsetY
+      history = {x: mouse.x, y: mouse.y}
+      mouse = {x: e.offsetX, y: e.offsetY}
+      drawLine(context, history, mouse)
+      points.push({x: mouse.x, y: mouse.y, color: context.strokeStyle})
     }
   })
 
   paint.addEventListener('mouseup', e => {
     if (drawing == true) {
-      drawLine(context, x, y, e.offsetX, e.offsetY)
-      x = 0
-      y = 0
+      drawLine(context, history, mouse)
+      mouse = {x: 0, y: 0}
       drawing = false
     }
+    pathHistory.push(points)
   })
 
-  function drawLine(context, x1, y1, x2, y2) {
-    step++
-    if (step < canvasHistory.length) {
-      canvasHistory.length = step
-    }
-
+  function drawLine(context, history, mouse) {
     context.beginPath()
     context.strokeStyle = colorInput.value
     context.lineWidth = 1
-    context.moveTo(x1, y1)
-    context.lineTo(x2, y2)
+    if (history.x === 0 && history.y === 0) {
+      history.x = mouse.x
+      history.y = mouse.y
+    }
+    context.moveTo(history.x, history.y)
+    context.lineTo(mouse.x, mouse.y)
     context.stroke()
-
-    canvasHistory.push(paint.toDataURL())
-
     context.closePath()
   }
 
-  function canvasUndo() {
-    if (step >= 0) {
-      step--
-      context.clearRect(0, 0, paint.width, paint.hight)
-      let canvasPic = new Image()
-      canvasPic.src = canvasHistory[step]
-      canvasPic.addEventListener('load', e => {
-        context.drawImage(canvasPic, 0, 0)
-      })
-      console.log(1)
-    } else {
-      alert('无法再撤销')
-    }
+  btn.addEventListener('click', e => {
+    pathHistory.splice(-1, 1)
+    drawPath()
+  })
+
+  function drawPath() {
+    context.clearRect(0, 0, paint.width, paint.height)
+    pathHistory.forEach(path => {
+      context.beginPath()
+      context.strokeStyle = path[0].color
+      console.log(path[0])
+      context.moveTo(path[0].x, path[0].y)
+      for (let i = 1; i < path.length; i++) {
+        context.lineTo(path[i].x, path[i].y)
+      }
+      context.stroke()
+      context.closePath()
+    })
   }
 
 </script>
+
 </html>
