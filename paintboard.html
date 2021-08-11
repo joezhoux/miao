@@ -73,8 +73,13 @@
   }
 
   btn.addEventListener('click', e => {
-    pathHistory.splice(-1, 1)
-    drawPath()
+    if (pathHistory.length === 0) {
+      alert('无法再撤销')
+      return
+    } else {
+      pathHistory.pop()
+      drawPath()
+    }
   })
 
   function drawPath() {
