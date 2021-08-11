@@ -35,6 +35,7 @@
     drawing = true
     history = {x: mouse.x, y: mouse.y}
     mouse = {x: e.offsetX, y: e.offsetY}
+    context.strokeStyle = colorInput.value
     points = []
     points.push({x: mouse.x, y: mouse.y, color: context.strokeStyle})
   })
@@ -81,7 +82,6 @@
     pathHistory.forEach(path => {
       context.beginPath()
       context.strokeStyle = path[0].color
-      console.log(path[0])
       context.moveTo(path[0].x, path[0].y)
       for (let i = 1; i < path.length; i++) {
         context.lineTo(path[i].x, path[i].y)
