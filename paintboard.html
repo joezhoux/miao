@@ -12,32 +12,45 @@
       height: 500px;
       border: 1px solid black;
     }
+    input {
+      margin-right: 20px;
+    }
+    button {
+      margin-left: 20px;
+    }
   </style>
 </head>
 
 <body>
   <canvas id="paintBoard" width="500" height="500"></canvas>
   <input type="color" id="inputColor">
+  <input type="range" min="1" max="10" value="2" id="rangeInput">
+  <span>2</span>
   <button>撤销</button>
 </body>
 <script>
   let drawing = false
   const paint = document.querySelector('#paintBoard')
   const context = paint.getContext('2d')
+  context.lineJoin = 'round'
+  context.lineCap = 'round'
   const colorInput = document.querySelector('#inputColor')
   let btn = document.querySelector('button')
   let pathHistory = []
   let points = []
   let mouse = {x: 0, y: 0}
   let history = {x: 0, y: 0}
+  let rangeInput = document.getElementById('rangeInput')
+  let span = document.querySelector('span')
 
   paint.addEventListener('mousedown', e => {
     drawing = true
     history = {x: mouse.x, y: mouse.y}
     mouse = {x: e.offsetX, y: e.offsetY}
     context.strokeStyle = colorInput.value
+    context.lineWidth = rangeInput.value
     points = []
-    points.push({x: mouse.x, y: mouse.y, color: context.strokeStyle})
+    points.push({x: mouse.x, y: mouse.y, color: context.strokeStyle, lineWidth: context.lineWidth})
   })
 
   paint.addEventListener('mousemove', e => {
@@ -45,7 +58,7 @@
       history = {x: mouse.x, y: mouse.y}
       mouse = {x: e.offsetX, y: e.offsetY}
       drawLine(context, history, mouse)
-      points.push({x: mouse.x, y: mouse.y, color: context.strokeStyle})
+      points.push({x: mouse.x, y: mouse.y, color: context.strokeStyle, lineWidth: context.lineWidth})
     }
   })
 
@@ -61,7 +74,7 @@
   function drawLine(context, history, mouse) {
     context.beginPath()
     context.strokeStyle = colorInput.value
-    context.lineWidth = 1
+    context.lineWidth = rangeInput.value
     if (history.x === 0 && history.y === 0) {
       history.x = mouse.x
       history.y = mouse.y
@@ -87,6 +100,7 @@
     pathHistory.forEach(path => {
       context.beginPath()
       context.strokeStyle = path[0].color
+      context.lineWidth = path[0].lineWidth
       context.moveTo(path[0].x, path[0].y)
       for (let i = 1; i < path.length; i++) {
         context.lineTo(path[i].x, path[i].y)
@@ -95,6 +109,10 @@
       context.closePath()
     })
   }
+
+  rangeInput.addEventListener('input', e => {
+    span.innerHTML = rangeInput.value
+  })
 
 </script>
 
