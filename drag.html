@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      width: 50px;
+      height: 50px;
+      position: fixed;
+    }
+
+    .a {
+      background-color: brown;
+    }
+
+    .b {
+      background-color: chartreuse;
+    }
+
+    .c {
+      background-color: darkcyan;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="a dragable" style="left: 10px; top: 10px;"></div>
+  <div class="b dragable" style="left: 60px; top: 60px;"></div>
+  <div class="c dragable" style="left: 110px; top: 110px;"></div>
+</body>
+<script>
+//监听document上的事件无需获取3个div元素
+  document.addEventListener('mousedown', e => {
+    //鼠标快速拖拽时 有可能出现禁止符号，类似拖拽文本，此判断排除非目标元素的事件监听
+    if (!e.target.classList.contains('dragable')) {
+      return
+    }
+    //记录鼠标的初始位置，以及被点击的元素
+    let startX = e.clientX
+    let startY = e.clientY
+    let evt = e.target
+    //将被点击的元素的初始位置记录 防止被点击后位置突变
+    let evtStartX = parseFloat(evt.style.left)
+    let evtStartY = parseFloat(evt.style.top)
+    //监听window 鼠标离开窗口后释放对元素的控制
+    window.addEventListener('mousemove', function move(et) {
+      //判断鼠标左键是否为按下状态,没有则移除监听
+      if (et.which === 0 || et.buttons === 0) {
+        window.removeEventListener('mousemove', move)
+        return
+      }
+
+      // 移动后的距离减去初始值获取 鼠标偏移量
+      // 需要变量存当前鼠标位置，防止鼠标移动太快造成的禁止拖拽标志
+      let curX = et.clientX
+      let curY = et.clientY
+      let x = curX - startX
+      let y = curY - startY
+      // 元素偏移量为初始值加上x, y
+      let left = evtStartX + x
+      let top = evtStartY + y
+      //判断鼠标是否超出窗口
+      if (left < 0) {
+        left = 0
+      } else if (left > window.innerWidth - evt.offsetWidth) {
+        left = window.innerWidth - evt.offsetWidth
+      }
+      if (top < 0) {
+        top = 0
+      } else if (top > window.innerHeight - evt.offsetHeight) {
+        top = window.innerHeight - evt.offsetHeight
+      }
+
+      evt.style.left = left + 'px'
+      evt.style.top = top + 'px'
+    })
+  })
+
+</script>
+
+</html>
