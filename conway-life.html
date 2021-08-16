@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="life"></div>
+  <button id="next">下一代</button>
+  <button id="auto">自动繁衍</button>
+  <button id="init">初始化</button>
+</body>
+<script>
+  const row = 20,
+    column = 15
+  let life = document.querySelector('#life')
+  let next = document.querySelector('#next')
+  let init = document.querySelector('#init')
+  let auto = document.querySelector('#auto')
+  let checkboxs = []
+  let id = null
+
+  for (let i = 0; i < column; i++) {
+    for (let j = 0; j < row; j++) {
+      let cell = document.createElement('input')
+      cell.type = 'checkbox'
+      life.appendChild(cell)
+      checkboxs.push(cell)
+    }
+    life.appendChild(document.createElement('br'))
+  }
+
+  function randomPopulate() {
+    if (id) {
+      clearInterval(id)
+      id = null
+    }
+    for (let i = 0; i < row * column; i++) {
+      checkboxs[i].checked = Math.random() > 0.6 ? true : false
+    }
+  }
+  randomPopulate()
+
+  init.addEventListener('click', randomPopulate)
+
+  function adjacentCells(checkeds, x, y) {
+    let count = 0
+    for (let i = Math.max(0, y - 1); i <= Math.min(column - 1, y + 1); i++) {
+      for (let j = Math.max(0, x - 1); j <= Math.min(row - 1, x + 1); j++) {
+        if ((j != x || i != y) && checkeds[j + i * row]) {
+          count++
+        }
+      }
+    }
+    return count
+  }
+
+  function nextState() {
+    let newCheckboxs = new Array(row * column)
+    let oldCheckeds = checkboxs.map(box => box.checked)
+    for (let i = 0; i < column; i++) {
+      for (let j = 0; j < row; j++) {
+        let live = adjacentCells(oldCheckeds, j, i)
+        let idx = j + i * row
+        if (live < 2 || live > 3) {
+          newCheckboxs[idx] = false
+        } else if (live === 2) {
+          newCheckboxs[idx] = oldCheckeds[idx]
+        } else {
+          newCheckboxs[idx] = true
+        }
+      }
+    }
+    return newCheckboxs
+  }
+
+  function changeState() {
+    let newCheckboxs = nextState()
+    for (let i = 0; i < row * column; i++) {
+      checkboxs[i].checked = newCheckboxs[i]
+    }
+  }
+
+  next.addEventListener('click', changeState)
+
+  auto.addEventListener('click', e => {
+    if (id) {
+      clearInterval(id)
+      id = null
+    } else {
+      id = setInterval(() => {
+        changeState()
+      }, 500);
+    }
+  })
+</script>
+
+</html>

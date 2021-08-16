@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      height: 300px;
+    }
+    .trail {
+      position: absolute;
+      height: 6px;
+      width: 6px;
+      border-radius: 3px;
+      background-color: teal;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    let dots = []
+    for (let i = 0; i < 3; i++) {
+      let node = document.createElement('div')
+      node.className = 'trail'
+      document.body.appendChild(node)
+      dots.push(node)
+    }
+
+    let curDot = 0
+
+    window.addEventListener('mousemove', e => {
+      let dot = dots[curDot]
+      let time = Date.now()
+      let angle = time * 0.004
+      dot.style.left = (e.pageX - 3) + Math.cos(angle) * 30 +'px'
+      dot.style.top = (e.pageY - 3) + Math.sin(angle) * 30 + 'px'
+      curDot = (curDot + 1) % dots.length
+    })
+  </script>
+</body>
+</html>

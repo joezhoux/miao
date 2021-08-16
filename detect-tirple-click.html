@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+  let lastTime1 = 0
+  let lastTime2 = 0
+  let lastTime3 = 0
+
+  window.addEventListener('click', e => {
+    let time = Date.now()
+    if (time - lastTime2 < 500 && lastTime2 - lastTime1 > 500) {
+      console.log('tirple click')
+    }
+    lastTime1 = lastTime2
+    lastTime2 = lastTime3
+    lastTime3 = time
+  })
+</script>
+</html>
