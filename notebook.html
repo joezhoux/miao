@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #note-book {
+      display: flex;
+      flex-direction: column;
+      width: 500px;
+      margin: 0 auto;
+    }
+
+    .add {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 10px 10px;
+    }
+
+    input {
+      width: 300px;
+      padding: 2px;
+    }
+
+    label {
+      text-align: center;
+    }
+
+    #slt {
+      width: 130px;
+      height: 300px;
+      border: 1px solid black;
+      list-style: none;
+      padding: 10px;
+    }
+
+    #slt li {
+      width: 100%;
+      height: 20px;
+      line-height: 20px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    #slt li:hover {
+      background-color: #dfe4ea;
+      cursor: pointer;
+    }
+
+    .main {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      font-size: 12px;
+    }
+
+    textarea {
+      width: 300px;
+      padding: 10px;
+    }
+
+    .c {
+      background-color: #dfe4ea;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="note-book">
+    <div class="add">
+      <label for="title">标题</label>
+      <input name="title" type="text" id="title">
+      <button id="add">新增</button>
+    </div>
+    <div class="main">
+      <ul id="slt">
+        <li>会议dede de sdq ad e deade</li>
+      </ul>
+      <textarea id="text" cols="30" rows="10"></textarea>
+    </div>
+  </div>
+
+</body>
+<script>
+  let ul = document.querySelector('ul')
+  let note = document.querySelector('textarea')
+  let input = document.querySelector('#title')
+  let add = document.querySelector('#add')
+  let list
+
+  add.addEventListener('click', e => {
+    if (input.value == '') return
+    else {
+      let li = document.createElement('li')
+      li.innerHTML = input.value
+      ul.appendChild(li)
+      list = document.querySelectorAll('li')
+      console.log(list)
+    }
+
+  })
+
+
+  note.addEventListener('change', e => {
+    localStorage.setItem('Notes', e.target.value)
+    console.log(e.target.value)
+  })
+</script>
+
+</html>
