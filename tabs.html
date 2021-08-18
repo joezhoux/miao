@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+    .tabs {
+      width: 400px;
+      height: 400px;
+      border: 1px solid black;
+      box-sizing: border-box;
+    }
+    .nav {
+      width: 100%;
+      display: flex;
+      background-color: black;
+    }
+    .btn {
+      width: 50px;
+      border: none;
+      color: #fff;
+      background-color: black;
+    }
+    .btn:hover {
+      background-color: gray;
+      cursor: pointer;
+    }
+    .pages {
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tabs">
+    <div class="nav">
+      <button class="btn" onclick="tabs('home')">home</button>
+      <button class="btn" onclick="tabs('blog')">blog</button>
+      <button class="btn" onclick="tabs('news')">news</button>
+    </div>
+    <div class="pages" id="home">home pages</div>
+    <div class="pages" id="blog" style="display: none;">blog pages</div>
+    <div class="pages" id="news" style="display: none;">news pages</div>
+  </div>
+
+</body>
+<script>
+  function tabs(params) {
+    let div = document.querySelectorAll('.pages')
+
+    for (let i = 0; i < div.length; i++) {
+      div[i].style.display = 'none'
+    }
+    
+    document.getElementById(params).style.display = 'block'
+  }
+
+</script>
+</html>
