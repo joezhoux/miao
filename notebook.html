@@ -82,6 +82,9 @@
 
   note.addEventListener('change',  e => {
     setState({
+      //对象的键为变量时可用 [xxx]表示
+      //MDN 对象初始化 从ECMAScript 2015开始，
+      //对象初始化语法开始支持计算属性名。其允许在[]中放入表达式，计算结果可以当做属性名
       notes: Object.assign({}, state.notes, {[state.selected]: note.value}),
       selected: state.selected
     })
