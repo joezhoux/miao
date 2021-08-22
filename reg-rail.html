@@ -1,0 +1,357 @@
+<svg width="5000px" height="5000px"></svg>
+<script>
+
+  let str = 'ab??c|def'
+  let i = 0
+  let groupIndex = 1
+
+  //从左往右依次解析
+  function parseCharacter() {
+    let node = {
+      type: 'Character',
+      start: i,
+      end: 0,
+      raw: '',
+      value: str[i],
+      ascii: str.charCodeAt(i),
+    }
+    i++
+    node.end = i
+    node.raw = str.slice(node.start, node.end)
+    return node
+  }
+
+  function parseCharacterClass() {
+    let node = {
+      type: 'CharacterClass',
+      start: i,
+      end: 0,
+      raw: '',
+      elements: [],
+      //字符集是否取反 [^abc]
+      revert: false
+    }
+    i++
+    if (str[i] === '^') {
+      node.revert = true
+      //跳过 ^ 
+      i++
+    }
+    while (str[i] !== ']') {
+      let charNode = parseCharacter()
+      node.elements.push(charNode)
+    }
+    //跳过 ]
+    i++
+    node.end = i
+    node.raw = str.slice(node.start, node.end)
+    return node
+  }
+
+  //解析出单个完整的部分， 字符 字符集 括号 量词
+  function parseOneElement() { 
+    if (str[i] === '[') {
+      return parseCharacterClass()
+    }
+    if (str[i] === '(') {
+      return parseCaptureGroup()
+    }
+    if (str[i] === '\\') {
+      // 解析转义
+      return parseEscape()
+    }
+    if (['?','*','+','{'].includes(str[i])) {
+      return parseQuantifier()
+    }
+    return parseCharacter()
+  }
+
+  function parseQuantifier() {
+    let node = {
+      type: 'Quantifier',
+      start: i,
+      end: 0,
+      raw: '',
+      // 重复的具体内容
+      element: null,
+      // 默认贪婪
+      greedy: true,
+      //最少重复次数
+      min: 0,
+      max: Infinity
+    }
+    // 贪婪匹配
+    if (str[i] === '?') {
+      node.max = 1
+      i++
+    } else if (str[i] === '*') {
+      i++
+    } else if (str[i] === '+') {
+      node.min = 1
+      i++
+    } else if (str[i] === '{') {
+      i++
+      let min = parseNumber()
+      node.min = min
+      if (str[i] === '}') {
+        // 即 {3} 最小值与最大值相等
+        node.max = min
+        // 若 {1,3}
+      } else {
+        // 跳过逗号
+        i++
+        if (str[i] === '}') {
+          //跳过 }
+          i++
+        } else {
+          let max = parseNumber()
+          node.max = max
+          // 跳过 }
+          i++ 
+        }
+      }
+    }
+    // 非贪婪匹配
+    if (str[i] === '?') {
+      node.greedy = false
+      i++
+    }
+    node.end = i
+    node.raw = str.slice(node.start, node.end)
+    return node
+  }
+
+  function parseNumber() {
+    let numStr = ''
+    while (str[i] >= '0' && str[i] <= '9') {
+      numStr += str[i]
+      i++
+    }
+    return Number(numStr)
+  }
+
+  //aaa|bbbcc|fowad|awd
+  function parseAlternative() {
+    let node = {
+      type: 'Alternative',
+      start: i,
+      end: 0,
+      raw: '',
+      elements: [],
+    }
+    while (str[i] !== '|' && str[i] !== ')' && i < str.length) {
+      var element = parseOneElement()
+      if (element.type === 'Quantifier') {
+        // 解析到量词 ['?','*','+','{'], 将前一个元素也取出
+        let quantifierElement = element
+        let prevElement = node.elements.pop()
+        if (prevElement.type === 'Quantifier') {
+          throw new SyntaxError('unexpected quantifier at pos: ' + i)
+        }
+        quantifierElement.element = prevElement
+        quantifierElement.start = prevElement.start
+        quantifierElement.raw = str.slice(quantifierElement.start, quantifierElement.end)
+        node.elements.push(quantifierElement)
+      } else {
+        node.elements.push(element)
+      }
+    }
+    node.end = i
+    node.raw = str.slice(node.start, node.end)
+    return node
+  }
+
+  function parseAlternatives() {
+    let alternatives = []
+
+    do {
+      let alt = parseAlternative()
+      alternatives.push(alt)
+      if (str[i] === '|') {
+        i++
+      } else if (str[i] === ')' || i >= str.length) {
+        break
+      }
+    } while(true) 
+
+    return alternatives
+  }
+
+  function parseCaptureGroup() {
+    let node = {
+      type: 'CaptureGroup',
+      start: i,
+      end: 0,
+      raw: '',
+      // 零宽断言
+      assertion: false,
+      // 预测断言， 向右看时为 false
+      lookahead: true,
+      // 正向断言
+      positive: true,
+      // 分组编号
+      index: groupIndex++,
+      // 分组名
+      name: null
+    }
+    // (foo|bar)
+    // (?:foo)
+    // (?=foo)
+    // (?!foo)
+    // (?<=foo)
+    // (?<!foo|bar)
+    // (?<xxx>foobar)
+    i++ // 跳过 (
+    if (str[i] === '?') {
+      // 跳过 ?
+      i++
+      if (str[i] === ':') {
+        node.index = 0
+        groupIndex--
+        i++
+      } else if (str[i] === '=') {
+        node.index = 0
+        groupIndex--
+        node.assertion = true
+        i++
+      } else if (str[i] === '!') {
+        node.index = 0
+        groupIndex--
+        node.assertion = true
+        node.positive = false
+        i++
+      } else if (str[i] === '<') {
+        i++ // 跳过 <
+        if (str[i] === '=') {
+          node.assertion = true
+          node.lookahead = false
+          node.index = 0
+          groupIndex--
+          i++
+        } else if (str[i] === '!') {
+          node.assertion = true
+          node.lookahead = false
+          node.positive = false
+          node.index = 0
+          i++
+        } else {
+          let name = parseGroupName()
+          node.name = name
+          i++ // 跳过 >
+        }
+      }
+    }
+    node.alternatives = parseAlternatives()
+    i++ // 跳过 )
+    node.end = i
+    node.raw = str.slice(node.start, node.end)
+    return node
+  }
+
+  // 解析分组名称
+  function parseGroupName() {
+    let simStr = ''
+    while (str[i] !== '>') {
+      simStr += str[i]
+      i++
+    }
+    return simStr.trim()
+  }
+
+  function parsePattern(input) {
+    str = input
+    i = 0
+    groupIndex = 1
+
+    return {
+      type: 'Pattern',
+      alternatives: parseAlternatives(),
+      raw: input
+    }
+  }
+
+  function createGraph(node) {
+    if (node.type === 'Character') {
+      return createCharacterGraph(node)
+    }
+    if (node.type === 'CharacterClass') {
+      return createCharacterClassGraph(node)
+    }
+    if (node.type === 'Quantifier') {
+      return createQuantifierGraph(node)
+    }
+    if (node.type === 'Alternative') {
+      return createAlternativeGraph(node)
+    }
+    if (node.type === 'CaptureGroup') {
+      return createCaptureGroupGraph(node)
+    }
+    if (node.type === 'Pattern') {
+      return createPatternGraph(node)
+    }
+  }
+
+  let padding = 10
+
+  function createCharacterGraph(node) {
+    let text = svgElt('text', {
+      y: 25,
+      x: padding
+    })
+    text.textContent = node.value
+    let textBox = text.getBBox()
+    let g = svgElt('g')
+    let rect = svgElt('rect', {
+      width: textBox.width + 2 * padding,
+      height: textBox.height + 2 * padding,
+      fill: '#dae9e5',
+      rx: padding / 4,
+      ry: padding / 4
+    })
+
+    g.append(rect)
+    g.append(text)
+
+    return {
+      g: g,
+      box: g.getBBox()
+    }
+  }
+
+  function createCharacterClassGraph(node) {
+    
+  }
+
+  function createQuantifierGraph(node) {
+    
+  }
+
+  function createAlternativeGraph(node) {
+    
+  }
+
+  function createCaptureGroupGraph(node) {
+    
+  }
+
+  function createPatternGraph(node) {
+    let graph = createAlternativeGraph(node.alternatives)
+    return graph
+  }
+
+  let svg = document.querySelector('svg')
+
+  function svgElt(tagName, attrs) {
+    let el = document.createElementNS('http://www.w3.org/2000/svg', tagName)
+    for (let key in attrs) {
+      let val = attrs[key]
+      el.setAttribute(key, val)
+    }
+    svg.append(el)
+    return el
+  }
+
+  let node = parseCharacter()
+
+  createCharacterGraph(node)
+</script>
