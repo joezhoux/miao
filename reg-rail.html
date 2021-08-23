@@ -1,7 +1,7 @@
 <svg width="5000px" height="5000px"></svg>
 <script>
 
-  let str = 'ab??c|def'
+  let str = 'ab[abc]de|fa|cc'
   let i = 0
   let groupIndex = 1
 
@@ -318,8 +318,38 @@
     }
   }
 
+  function add(a, b) {
+    return a + b
+  }
+
+  function max(a, b) {
+    return Math.max(a, b)
+  }
+
   function createCharacterClassGraph(node) {
-    
+    let subGraphs = node.elements.map(createGraph)
+    let width = subGraphs.map(it => it.box.width).reduce(max) + 2 * padding
+    let height = subGraphs.map(it => it.box.height).reduce(add) + (subGraphs.length + 1) * padding
+    let g = svgElt('g')
+    let rect = svgElt('rect', {
+      width: width,
+      height: height,
+      fill: '#cbcbba',
+      rx: padding / 4,
+      ry: padding / 4
+    })
+    g.append(rect)
+
+    let offset = padding
+    for (let graph of subGraphs) {
+      graph.g.style.transform = `translate(${(width - graph.box.width) / 2}px, ${offset}px)`
+      g.append(graph.g)
+      offset += padding + graph.box.height
+    }
+    return  {
+      g: g,
+      box: g.getBBox()
+    }
   }
 
   function createQuantifierGraph(node) {
@@ -327,7 +357,105 @@
   }
 
   function createAlternativeGraph(node) {
-    
+    let subGraphs = node.elements.map(createGraph)
+    let width = subGraphs.map(it => it.box.width).reduce(add) + (subGraphs.length + 1) * padding
+    let height = subGraphs.map(it => it.box.height).reduce(max) + 2 * padding
+    let g = svgElt('g')
+    let rect = svgElt('rect', {
+      width: width,
+      height: height,
+      fill: '#7bed9f',
+      rx: padding / 4,
+      ry: padding / 4
+    })
+    let line = svgElt('path', {
+      stroke: 'black',
+      'stroke-width': '1',
+      fill: 'none'
+    })
+    g.append(rect)
+    g.append(line)
+
+    let d = ''
+    let offset = padding
+    for (let graph of subGraphs) {
+      graph.g.style.transform = `translate(${offset}px, ${(height - graph.box.height) / 2}px)`
+      g.append(graph.g)
+      d += `M ${offset} ${height / 2} h -${padding}`
+      line.setAttribute('d', d)
+      offset += padding + graph.box.width
+    }
+
+    d += `M ${offset} ${height / 2} h -${padding}`
+    line.setAttribute('d', d)
+
+    return {
+      g: g,
+      box: g.getBBox()
+    }
+
+  }
+
+  function createAlternativesGraph(nodes) {
+    debugger
+    let subGraphs = nodes.map(createGraph)
+    let width = subGraphs.map(it => it.box.width).reduce(max) + 12 * padding
+    let height = subGraphs.map(it => it.box.height).reduce(add) + (subGraphs.length + 1) * padding
+    let g = svgElt('g')
+    let rect = svgElt('rect', {
+      width: width,
+      height: height,
+      fill: '#ced6e0',
+      rx: padding / 4,
+      ry: padding / 4
+    })
+    g.append(rect)
+
+    let path = svgElt('path', {
+      stroke: 'black',
+      'stroke-width': '1',
+      fill: 'none'
+    })
+    g.append(path)
+
+    let d = ''
+    let offset = padding
+    for (let graph of subGraphs) {
+      graph.g.style.transform = `translate(${(width - graph.box.width) / 2}px, ${offset}px)`
+      g.append(graph.g)
+      let startX = 0
+      let startY = height / 2
+      let endY = offset + graph.box.height / 2
+      let endX = (width - graph.box.width) / 2
+      if (startY == endY) {
+        d += `
+          M ${startX} ${startY}
+          L ${endX} ${endY}
+        `
+      } else {
+        d += `
+          M ${startX} ${startY}
+          C ${startX + 4} ${endY}, ${startX + 4} ${endY}, ${endX} ${endY}
+        `
+      }
+      if (startY == endY) {
+        d += `
+          M ${width} ${startY}
+          L ${width - endX} ${endY}
+        `
+      } else {
+        d += `
+          M ${width} ${startY}
+          C ${width + padding} ${startY}, ${width + padding} ${startY}, ${width - endX} ${endY}
+        `
+      }
+      path.setAttribute('d', d)
+      offset += padding + graph.box.height
+    }
+    return {
+      g: g,
+      box: g.getBBox()
+    }
   }
 
   function createCaptureGroupGraph(node) {
@@ -351,7 +479,7 @@
     return el
   }
 
-  let node = parseCharacter()
+  let nodes = parseAlternatives()
 
-  createCharacterGraph(node)
+  createAlternativesGraph(nodes)
 </script>
