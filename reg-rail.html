@@ -1,7 +1,7 @@
 <svg width="5000px" height="5000px"></svg>
 <script>
 
-  let str = 'ab[abc]de|fa|cc'
+  let str = '(a(a(a)?)+)*(p|d|(?<testname>ccc|ddd|eee|fff))(?!foo)(hufa|((a{2,4}b{0,99}c{1,99}d{3}e{4}f{4,})*)*(?:[^aeiwu]*)*(cd|ef|(fo[odc]+)+dd)+c[def]|def|abc)'
   let i = 0
   let groupIndex = 1
 
@@ -201,7 +201,9 @@
     // (?<=foo)
     // (?<!foo|bar)
     // (?<xxx>foobar)
-    i++ // 跳过 (
+    if (str[i] === '(') {
+      i++ // 跳过 (
+    }
     if (str[i] === '?') {
       // 跳过 ?
       i++
@@ -353,7 +355,59 @@
   }
 
   function createQuantifierGraph(node) {
-    
+    let subGraph = createGraph(node.element)
+    let width = node.min == 0 ? subGraph.box.width + 4 * padding : subGraph.box.width + 2 * padding
+    let height = subGraph.box.height + 2 * padding
+    let g = svgElt('g')
+    let rect = svgElt('rect', {
+      width: width,
+      height: height,
+      fill: 'none'
+    })
+    g.append(rect)
+    subGraph.g.style.transform = `translate(${(width - subGraph.box.width) / 2}px,${padding}px)`
+    g.append(subGraph.g)
+
+    let line = svgElt('path', {
+      stroke: 'black',
+      'stroke-width': '1',
+      fill: 'none'
+    })
+    g.append(line)
+
+    let d = ''
+
+    if (node.min == 0) {
+      d += `
+        M ${0} ${height / 2}
+        a ${padding} ${padding} 0 0 0 ${padding} -${padding}
+        v -${subGraph.box.height / 2 - padding}
+        a ${padding} ${padding} 0 0 1 ${padding} -${padding}
+        h ${subGraph.box.width}
+        a ${padding} ${padding} 0 0 1 ${padding} ${padding}
+        v ${subGraph.box.height / 2 - padding}
+        a ${padding} ${padding} 0 0 0 ${padding} ${padding}
+      `
+      line.setAttribute('d', d)
+    }
+    if (node.max > 1) {
+      d += `
+        M ${width - (width - subGraph.box.width) / 2 } ${height / 2}
+        a ${padding} ${padding} 0 0 1 ${padding} ${padding}
+        v ${subGraph.box.height / 2 - padding}
+        a ${padding} ${padding} 0 0 1 -${padding} ${padding}
+        h -${subGraph.box.width}
+        a ${padding} ${padding} 0 0 1 -${padding} -${padding}
+        v -${subGraph.box.height / 2 - padding}
+        a ${padding} ${padding} 0 0 1 ${padding} -${padding}
+      `
+      line.setAttribute('d', d)
+    }
+
+    return {
+      g: g,
+      box: g.getBBox(),
+    }
   }
 
   function createAlternativeGraph(node) {
@@ -364,7 +418,7 @@
     let rect = svgElt('rect', {
       width: width,
       height: height,
-      fill: '#7bed9f',
+      fill: 'none',
       rx: padding / 4,
       ry: padding / 4
     })
@@ -377,16 +431,19 @@
     g.append(line)
 
     let d = ''
-    let offset = padding
+    // 增加 30 距离使得各个元素间比较松散
+    let offset = padding + 30
     for (let graph of subGraphs) {
       graph.g.style.transform = `translate(${offset}px, ${(height - graph.box.height) / 2}px)`
       g.append(graph.g)
-      d += `M ${offset} ${height / 2} h -${padding}`
+      // h -${padding + 30} 加 30 使得线能正常连接
+      d += `M ${offset} ${height / 2} h -${padding + 30}`
       line.setAttribute('d', d)
-      offset += padding + graph.box.width
+      // 增加 30 距离使得各个元素间比较松散
+      offset += padding + graph.box.width + 30
     }
-
-    d += `M ${offset} ${height / 2} h -${padding}`
+    // h -${padding + 30} 加 30 使得线能正常连接
+    d += `M ${offset} ${height / 2} h -${padding + 30}`
     line.setAttribute('d', d)
 
     return {
@@ -397,7 +454,6 @@
   }
 
   function createAlternativesGraph(nodes) {
-    debugger
     let subGraphs = nodes.map(createGraph)
     let width = subGraphs.map(it => it.box.width).reduce(max) + 12 * padding
     let height = subGraphs.map(it => it.box.height).reduce(add) + (subGraphs.length + 1) * padding
@@ -405,9 +461,7 @@
     let rect = svgElt('rect', {
       width: width,
       height: height,
-      fill: '#ced6e0',
-      rx: padding / 4,
-      ry: padding / 4
+      fill: 'none'
     })
     g.append(rect)
 
@@ -446,7 +500,7 @@
       } else {
         d += `
           M ${width} ${startY}
-          C ${width + padding} ${startY}, ${width + padding} ${startY}, ${width - endX} ${endY}
+          C ${width - 4} ${endY}, ${width - 4} ${endY}, ${width - endX} ${endY}
         `
       }
       path.setAttribute('d', d)
@@ -459,11 +513,87 @@
   }
 
   function createCaptureGroupGraph(node) {
-    
+    let graph = createAlternativesGraph(node.alternatives)
+    // let width = graph.box.width + 2 * padding
+    // let height = graph.box.height + 2 * padding
+    let width = graph.box.width
+    let height = graph.box.height
+    let g = svgElt('g')
+    let rect = svgElt('rect', {
+      width: width,
+      height: height,
+      fill: 'none'
+    })
+    g.append(rect)
+    let border = svgElt('rect', {
+      //方便调整偏移量，使虚线不重叠于实线
+      width: graph.box.width + 2,
+      height: graph.box.height,
+      rx: padding / 2,
+      ry: padding / 2,
+      fill: 'none',
+      stroke: 'grey',
+      'stroke-dasharray': '4 5'
+    })
+    // graph.g.style.transform = `translate(${padding}px, ${padding}px)`
+    g.append(graph.g)
+    // 在宽度增加 2 的情况下 偏移量 -1 使得虚线不跟实线重叠
+    // border.style.transform = `translate(${padding - 1}px, ${padding}px)` 
+    border.style.transform = `translate(${-1}px, ${0}px)`
+    g.append(border)
+
+    if (node.index > 0) {
+      let text = createTextGraph('Group #' + node.index)
+      g.append(text.g)
+    } else if (node.assertion) {
+      let str = ''
+      if (node.positive) {
+        str += 'positive '
+      } else {
+        str += 'negative '
+      }
+
+      if (node.lookahead) {
+        str += 'lookahead'
+      } else {
+        str += 'lookbehand'
+      }
+
+      let text = createTextGraph(str)
+      g.append(text.g)
+    }
+
+    return {
+      g: g,
+      box: g.getBBox()
+    }
+  }
+
+  function createTextGraph(str) {
+    var text = svgElt('text', {
+      'dominant-baseline': 'text-before-edge',
+    })
+
+    text.textContent = str
+    var textBox = text.getBBox()
+    var rect = svgElt('rect', {
+      width: textBox.width,
+      height: textBox.height,
+      fill: 'yellow'
+    })
+
+    var g = svgElt('g')
+    g.append(rect)
+    g.append(text)
+
+    return {
+      g: g,
+      box: g.getBBox()
+    }
   }
 
   function createPatternGraph(node) {
-    let graph = createAlternativeGraph(node.alternatives)
+    let graph = createAlternativesGraph(node.alternatives)
     return graph
   }
 
@@ -478,8 +608,7 @@
     svg.append(el)
     return el
   }
+  let node = parsePattern(str)
 
-  let nodes = parseAlternatives()
-
-  createAlternativesGraph(nodes)
+  createPatternGraph(node)
 </script>
