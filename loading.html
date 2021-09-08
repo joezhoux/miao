@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      position: relative;
+    }
+    .loading, .loading2 {
+      position: absolute;
+      top: 100px;
+      height: 50px;
+      width: 0px;
+      background-color: tan;
+      text-align: center;
+      line-height: 50px;
+      font-size: 24px;
+      color: #fff;
+    }
+    .loading2 {
+      top: 200px;
+      background-color: teal;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="loading"></div>
+  <div class="loading2"></div>
+</body>
+<script>
+
+function sleep() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, Math.random()*3000)
+  })
+}
+
+async function loading() {
+  let arr = [1,2,3,4,5,6]
+  for(let i = 0; i < arr.length; i++) {
+    await sleep()
+    let progress = Math.round((i + 1) / arr.length * 100)
+    let loading = document.querySelector('.loading')
+    loading.style.width = progress + '%'
+    loading.innerHTML = progress + '%'
+  }
+}
+
+function handle() {
+  let i = 0
+  ;(function run() {
+    let loading2 = document.querySelector('.loading2')
+    loading2.innerHTML = i + '%'
+    loading2.style.width = i + '%'
+    if (++i <= 100) {
+      setTimeout(run, 100)
+    }
+  })()
+}
+
+loading()
+
+handle()
+
+</script>
+
+</html>
