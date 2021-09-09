@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./myPromise.js"></script>
+</head>
+
+<body>
+  <script>
+
+    let p1 = new myPromise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('111')
+      }, 2000)
+    })
+    let p2 = new myPromise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('222')
+      }, 1000)
+    })
+
+    let promises1 = myPromise.race([p1, p2]).then(
+      value => {
+        console.log(value)
+      },
+      reason => {
+        console.log(reason)
+      }
+    )
+    let promises2 = myPromise.all([p1, p2]).then(
+      value => {
+        console.log(value)
+      },
+      reason => {
+        console.log(reason)
+      }
+    )
+
+    // myPromise.resolve(new myPromise((res,rej)=>{res('111')})).then(resolve => {
+    //   console.log(resolve)
+    // })
+
+    // myPromise.reject('222').then(null, reject => {
+    //   console.log(reject)
+    // })
+    // let p = new myPromise((resolve, reject) => {
+    //       resolve('resolve')
+    //   })
+    //   .then(resolve => {
+    //     console.log(resolve)
+    //     return p
+    //   })
+
+    // let p1 = new Promise((resolve, reject) => {
+    //   resolve()
+    // }).then(resolve => {
+    //   console.log(resolve)
+    //   return p1
+    // })
+  </script>
+</body>
+
+</html>
